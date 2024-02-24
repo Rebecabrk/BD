@@ -1,0 +1,4041 @@
+
+SQL> select s1.nume || ' ' || s1.prenume || ' a luat nota mai mare decat ' || s2.nume || ' ' || s2.prenume || ' la materia ' || c1.titlu_curs || '.' from studenti s1 cross join studenti s2 join note n on s2.id_curs = n.id_curs join cursuri on n.id_curs = c.id_curs;
+select s1.nume || ' ' || s1.prenume || ' a luat nota mai mare decat ' || s2.nume || ' ' || s2.prenume || ' la materia ' || c1.titlu_curs || '.' from studenti s1 cross join studenti s2 join note n on s2.id_curs = n.id_curs join cursuri on n.id_curs = c.id_curs
+
+                                               *
+ERROR at line 1:
+ORA-00904: "S2"."ID_CURS": invalid identifier
+
+
+SQL> select s1.nume || ' ' || s1.prenume || ' a luat nota mai mare decat ' || s2.nume || ' ' || s2.prenume || ' la materia ' || c1.titlu_curs || '.' from studenti s1 cross join studenti s2 join note n on s2.id_curs = n.id_curs join cursuri c1 on n.id_curs = c1.id_curs;
+select s1.nume || ' ' || s1.prenume || ' a luat nota mai mare decat ' || s2.nume || ' ' || s2.prenume || ' la materia ' || c1.titlu_curs || '.' from studenti s1 cross join studenti s2 join note n on s2.id_curs = n.id_curs join cursuri c1 on n.id_curs = c1.id_curs
+
+                                               *
+ERROR at line 1:
+ORA-00904: "S2"."ID_CURS": invalid identifier
+
+
+SQL> select studenti.nume, note.valoare from studenti join note on studenti.nr_matricol = note.nr_matricol;NUME          VALOARE
+---------- ----------
+Popescu             8
+Popescu             9
+Popescu            10
+Popescu             9
+Popescu             7
+Popescu             8
+Prelipcean          7
+Prelipcean          6
+Prelipcean          5
+Prelipcean          6
+Prelipcean          7
+
+NUME          VALOARE
+---------- ----------
+Prelipcean          4
+Antonie             9
+Antonie             9
+Antonie             7
+Antonie            10
+Antonie             4
+Antonie             7
+Arhire              6
+Arhire              9
+Arhire             10
+Arhire              4
+
+NUME          VALOARE
+---------- ----------
+Arhire              5
+Arhire              4
+Panaite            10
+Panaite             7
+Panaite            10
+Panaite            10
+Panaite             8
+Panaite             9
+Bodnar             10
+Bodnar             10
+Bodnar              9
+
+NUME          VALOARE
+---------- ----------
+Archip              7
+Archip              6
+Archip              4
+Ciobotariu          7
+Ciobotariu          7
+Ciobotariu          7
+Bodnar              7
+Bodnar              8
+Bodnar              9
+
+42 rows selected.
+
+SQL> select studenti.nume, note.valoare,cursuri.titlu_curs from studenti join note on studenti.nr_matricol = note.nr_matricol join cursuri on note.id_curs = cursuri.id_curs;
+
+NUME          VALOARE TITLU_CURS
+---------- ---------- ---------------
+Popescu             8 Tehnologii Web
+Popescu             7 Java
+Popescu             9 BD
+Popescu            10 OOP
+Popescu             9 Matematica
+Popescu             8 Logica
+Prelipcean          4 Tehnologii Web
+Prelipcean          7 Java
+Prelipcean          6 BD
+Prelipcean          5 OOP
+Prelipcean          6 Matematica
+
+NUME          VALOARE TITLU_CURS
+---------- ---------- ---------------
+Prelipcean          7 Logica
+Antonie             7 Tehnologii Web
+Antonie             4 Java
+Antonie            10 BD
+Antonie             7 OOP
+Antonie             9 Matematica
+Antonie             9 Logica
+Arhire              4 Tehnologii Web
+Arhire              5 Java
+Arhire              4 BD
+Arhire             10 OOP
+
+NUME          VALOARE TITLU_CURS
+---------- ---------- ---------------
+Arhire              9 Matematica
+Arhire              6 Logica
+Panaite             9 Tehnologii Web
+Panaite             8 Java
+Panaite            10 BD
+Panaite            10 OOP
+Panaite             7 Matematica
+Panaite            10 Logica
+Bodnar              9 OOP
+Bodnar             10 Matematica
+Bodnar             10 Logica
+
+NUME          VALOARE TITLU_CURS
+---------- ---------- ---------------
+Archip              4 OOP
+Archip              6 Matematica
+Archip              7 Logica
+Ciobotariu          7 OOP
+Ciobotariu          7 Matematica
+Ciobotariu          7 Logica
+Bodnar              9 OOP
+Bodnar              8 Matematica
+Bodnar              7 Logica
+
+42 rows selected.
+
+SQL> select studenti.nume, note.valoare,cursuri.titlu_curs from studenti join note on studenti.nr_matricol = note.nr_matricol join cursuri on note.id_curs = cursuri.id_curs order by note.valoare;
+
+NUME          VALOARE TITLU_CURS
+---------- ---------- ---------------
+Arhire              4 BD
+Arhire              4 Tehnologii Web
+Antonie             4 Java
+Prelipcean          4 Tehnologii Web
+Archip              4 OOP
+Arhire              5 Java
+Prelipcean          5 OOP
+Archip              6 Matematica
+Prelipcean          6 BD
+Arhire              6 Logica
+Prelipcean          6 Matematica
+
+NUME          VALOARE TITLU_CURS
+---------- ---------- ---------------
+Antonie             7 OOP
+Antonie             7 Tehnologii Web
+Prelipcean          7 Logica
+Prelipcean          7 Java
+Bodnar              7 Logica
+Popescu             7 Java
+Ciobotariu          7 Logica
+Ciobotariu          7 Matematica
+Ciobotariu          7 OOP
+Archip              7 Logica
+Panaite             7 Matematica
+
+NUME          VALOARE TITLU_CURS
+---------- ---------- ---------------
+Popescu             8 Tehnologii Web
+Panaite             8 Java
+Bodnar              8 Matematica
+Popescu             8 Logica
+Panaite             9 Tehnologii Web
+Bodnar              9 OOP
+Arhire              9 Matematica
+Popescu             9 BD
+Antonie             9 Matematica
+Popescu             9 Matematica
+Antonie             9 Logica
+
+NUME          VALOARE TITLU_CURS
+---------- ---------- ---------------
+Bodnar              9 OOP
+Antonie            10 BD
+Arhire             10 OOP
+Bodnar             10 Logica
+Bodnar             10 Matematica
+Panaite            10 Logica
+Panaite            10 OOP
+Panaite            10 BD
+Popescu            10 OOP
+
+42 rows selected.
+
+SQL> select s1.nume, s2.nume, n1.valoare, n2.valoare, cursuri.titlu_curs from studenti s1 cross join studenti s2 join note n1 on s2.nr_matricol = n1.nr_matricol join note n2 on s1.nr_matricol=n2.nr_matricol join cursuri on n2.id_curs = cursuri.id_curs;
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Bodnar              9          8 Logica
+Popescu    Bodnar              8          8 Logica
+Popescu    Bodnar              7          8 Logica
+Popescu    Ciobotariu          7          8 Logica
+Popescu    Ciobotariu          7          8 Logica
+Popescu    Ciobotariu          7          8 Logica
+Popescu    Archip              4          8 Logica
+Popescu    Archip              6          8 Logica
+Popescu    Archip              7          8 Logica
+Popescu    Bodnar              9          8 Logica
+Popescu    Bodnar             10          8 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Bodnar             10          8 Logica
+Popescu    Panaite             9          8 Logica
+Popescu    Panaite             8          8 Logica
+Popescu    Panaite            10          8 Logica
+Popescu    Panaite            10          8 Logica
+Popescu    Panaite             7          8 Logica
+Popescu    Panaite            10          8 Logica
+Popescu    Arhire              4          8 Logica
+Popescu    Arhire              5          8 Logica
+Popescu    Arhire              4          8 Logica
+Popescu    Arhire             10          8 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Arhire              9          8 Logica
+Popescu    Arhire              6          8 Logica
+Popescu    Antonie             7          8 Logica
+Popescu    Antonie             4          8 Logica
+Popescu    Antonie            10          8 Logica
+Popescu    Antonie             7          8 Logica
+Popescu    Antonie             9          8 Logica
+Popescu    Antonie             9          8 Logica
+Popescu    Prelipcean          4          8 Logica
+Popescu    Prelipcean          7          8 Logica
+Popescu    Prelipcean          6          8 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Prelipcean          5          8 Logica
+Popescu    Prelipcean          6          8 Logica
+Popescu    Prelipcean          7          8 Logica
+Popescu    Popescu             8          8 Logica
+Popescu    Popescu             7          8 Logica
+Popescu    Popescu             9          8 Logica
+Popescu    Popescu            10          8 Logica
+Popescu    Popescu             9          8 Logica
+Popescu    Popescu             8          8 Logica
+Popescu    Bodnar              9          9 Matematica
+Popescu    Bodnar              8          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Bodnar              7          9 Matematica
+Popescu    Ciobotariu          7          9 Matematica
+Popescu    Ciobotariu          7          9 Matematica
+Popescu    Ciobotariu          7          9 Matematica
+Popescu    Archip              4          9 Matematica
+Popescu    Archip              6          9 Matematica
+Popescu    Archip              7          9 Matematica
+Popescu    Bodnar              9          9 Matematica
+Popescu    Bodnar             10          9 Matematica
+Popescu    Bodnar             10          9 Matematica
+Popescu    Panaite             9          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Panaite             8          9 Matematica
+Popescu    Panaite            10          9 Matematica
+Popescu    Panaite            10          9 Matematica
+Popescu    Panaite             7          9 Matematica
+Popescu    Panaite            10          9 Matematica
+Popescu    Arhire              4          9 Matematica
+Popescu    Arhire              5          9 Matematica
+Popescu    Arhire              4          9 Matematica
+Popescu    Arhire             10          9 Matematica
+Popescu    Arhire              9          9 Matematica
+Popescu    Arhire              6          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Antonie             7          9 Matematica
+Popescu    Antonie             4          9 Matematica
+Popescu    Antonie            10          9 Matematica
+Popescu    Antonie             7          9 Matematica
+Popescu    Antonie             9          9 Matematica
+Popescu    Antonie             9          9 Matematica
+Popescu    Prelipcean          4          9 Matematica
+Popescu    Prelipcean          7          9 Matematica
+Popescu    Prelipcean          6          9 Matematica
+Popescu    Prelipcean          5          9 Matematica
+Popescu    Prelipcean          6          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Prelipcean          7          9 Matematica
+Popescu    Popescu             8          9 Matematica
+Popescu    Popescu             7          9 Matematica
+Popescu    Popescu             9          9 Matematica
+Popescu    Popescu            10          9 Matematica
+Popescu    Popescu             9          9 Matematica
+Popescu    Popescu             8          9 Matematica
+Popescu    Bodnar              9         10 OOP
+Popescu    Bodnar              8         10 OOP
+Popescu    Bodnar              7         10 OOP
+Popescu    Ciobotariu          7         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Ciobotariu          7         10 OOP
+Popescu    Ciobotariu          7         10 OOP
+Popescu    Archip              4         10 OOP
+Popescu    Archip              6         10 OOP
+Popescu    Archip              7         10 OOP
+Popescu    Bodnar              9         10 OOP
+Popescu    Bodnar             10         10 OOP
+Popescu    Bodnar             10         10 OOP
+Popescu    Panaite             9         10 OOP
+Popescu    Panaite             8         10 OOP
+Popescu    Panaite            10         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Panaite            10         10 OOP
+Popescu    Panaite             7         10 OOP
+Popescu    Panaite            10         10 OOP
+Popescu    Arhire              4         10 OOP
+Popescu    Arhire              5         10 OOP
+Popescu    Arhire              4         10 OOP
+Popescu    Arhire             10         10 OOP
+Popescu    Arhire              9         10 OOP
+Popescu    Arhire              6         10 OOP
+Popescu    Antonie             7         10 OOP
+Popescu    Antonie             4         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Antonie            10         10 OOP
+Popescu    Antonie             7         10 OOP
+Popescu    Antonie             9         10 OOP
+Popescu    Antonie             9         10 OOP
+Popescu    Prelipcean          4         10 OOP
+Popescu    Prelipcean          7         10 OOP
+Popescu    Prelipcean          6         10 OOP
+Popescu    Prelipcean          5         10 OOP
+Popescu    Prelipcean          6         10 OOP
+Popescu    Prelipcean          7         10 OOP
+Popescu    Popescu             8         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Popescu             7         10 OOP
+Popescu    Popescu             9         10 OOP
+Popescu    Popescu            10         10 OOP
+Popescu    Popescu             9         10 OOP
+Popescu    Popescu             8         10 OOP
+Popescu    Bodnar              9          9 BD
+Popescu    Bodnar              8          9 BD
+Popescu    Bodnar              7          9 BD
+Popescu    Ciobotariu          7          9 BD
+Popescu    Ciobotariu          7          9 BD
+Popescu    Ciobotariu          7          9 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Archip              4          9 BD
+Popescu    Archip              6          9 BD
+Popescu    Archip              7          9 BD
+Popescu    Bodnar              9          9 BD
+Popescu    Bodnar             10          9 BD
+Popescu    Bodnar             10          9 BD
+Popescu    Panaite             9          9 BD
+Popescu    Panaite             8          9 BD
+Popescu    Panaite            10          9 BD
+Popescu    Panaite            10          9 BD
+Popescu    Panaite             7          9 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Panaite            10          9 BD
+Popescu    Arhire              4          9 BD
+Popescu    Arhire              5          9 BD
+Popescu    Arhire              4          9 BD
+Popescu    Arhire             10          9 BD
+Popescu    Arhire              9          9 BD
+Popescu    Arhire              6          9 BD
+Popescu    Antonie             7          9 BD
+Popescu    Antonie             4          9 BD
+Popescu    Antonie            10          9 BD
+Popescu    Antonie             7          9 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Antonie             9          9 BD
+Popescu    Antonie             9          9 BD
+Popescu    Prelipcean          4          9 BD
+Popescu    Prelipcean          7          9 BD
+Popescu    Prelipcean          6          9 BD
+Popescu    Prelipcean          5          9 BD
+Popescu    Prelipcean          6          9 BD
+Popescu    Prelipcean          7          9 BD
+Popescu    Popescu             8          9 BD
+Popescu    Popescu             7          9 BD
+Popescu    Popescu             9          9 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Popescu            10          9 BD
+Popescu    Popescu             9          9 BD
+Popescu    Popescu             8          9 BD
+Popescu    Bodnar              9          7 Java
+Popescu    Bodnar              8          7 Java
+Popescu    Bodnar              7          7 Java
+Popescu    Ciobotariu          7          7 Java
+Popescu    Ciobotariu          7          7 Java
+Popescu    Ciobotariu          7          7 Java
+Popescu    Archip              4          7 Java
+Popescu    Archip              6          7 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Archip              7          7 Java
+Popescu    Bodnar              9          7 Java
+Popescu    Bodnar             10          7 Java
+Popescu    Bodnar             10          7 Java
+Popescu    Panaite             9          7 Java
+Popescu    Panaite             8          7 Java
+Popescu    Panaite            10          7 Java
+Popescu    Panaite            10          7 Java
+Popescu    Panaite             7          7 Java
+Popescu    Panaite            10          7 Java
+Popescu    Arhire              4          7 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Arhire              5          7 Java
+Popescu    Arhire              4          7 Java
+Popescu    Arhire             10          7 Java
+Popescu    Arhire              9          7 Java
+Popescu    Arhire              6          7 Java
+Popescu    Antonie             7          7 Java
+Popescu    Antonie             4          7 Java
+Popescu    Antonie            10          7 Java
+Popescu    Antonie             7          7 Java
+Popescu    Antonie             9          7 Java
+Popescu    Antonie             9          7 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Prelipcean          4          7 Java
+Popescu    Prelipcean          7          7 Java
+Popescu    Prelipcean          6          7 Java
+Popescu    Prelipcean          5          7 Java
+Popescu    Prelipcean          6          7 Java
+Popescu    Prelipcean          7          7 Java
+Popescu    Popescu             8          7 Java
+Popescu    Popescu             7          7 Java
+Popescu    Popescu             9          7 Java
+Popescu    Popescu            10          7 Java
+Popescu    Popescu             9          7 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Popescu             8          7 Java
+Popescu    Bodnar              9          8 Tehnologii Web
+Popescu    Bodnar              8          8 Tehnologii Web
+Popescu    Bodnar              7          8 Tehnologii Web
+Popescu    Ciobotariu          7          8 Tehnologii Web
+Popescu    Ciobotariu          7          8 Tehnologii Web
+Popescu    Ciobotariu          7          8 Tehnologii Web
+Popescu    Archip              4          8 Tehnologii Web
+Popescu    Archip              6          8 Tehnologii Web
+Popescu    Archip              7          8 Tehnologii Web
+Popescu    Bodnar              9          8 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Bodnar             10          8 Tehnologii Web
+Popescu    Bodnar             10          8 Tehnologii Web
+Popescu    Panaite             9          8 Tehnologii Web
+Popescu    Panaite             8          8 Tehnologii Web
+Popescu    Panaite            10          8 Tehnologii Web
+Popescu    Panaite            10          8 Tehnologii Web
+Popescu    Panaite             7          8 Tehnologii Web
+Popescu    Panaite            10          8 Tehnologii Web
+Popescu    Arhire              4          8 Tehnologii Web
+Popescu    Arhire              5          8 Tehnologii Web
+Popescu    Arhire              4          8 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Arhire             10          8 Tehnologii Web
+Popescu    Arhire              9          8 Tehnologii Web
+Popescu    Arhire              6          8 Tehnologii Web
+Popescu    Antonie             7          8 Tehnologii Web
+Popescu    Antonie             4          8 Tehnologii Web
+Popescu    Antonie            10          8 Tehnologii Web
+Popescu    Antonie             7          8 Tehnologii Web
+Popescu    Antonie             9          8 Tehnologii Web
+Popescu    Antonie             9          8 Tehnologii Web
+Popescu    Prelipcean          4          8 Tehnologii Web
+Popescu    Prelipcean          7          8 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Prelipcean          6          8 Tehnologii Web
+Popescu    Prelipcean          5          8 Tehnologii Web
+Popescu    Prelipcean          6          8 Tehnologii Web
+Popescu    Prelipcean          7          8 Tehnologii Web
+Popescu    Popescu             8          8 Tehnologii Web
+Popescu    Popescu             7          8 Tehnologii Web
+Popescu    Popescu             9          8 Tehnologii Web
+Popescu    Popescu            10          8 Tehnologii Web
+Popescu    Popescu             9          8 Tehnologii Web
+Popescu    Popescu             8          8 Tehnologii Web
+Prelipcean Bodnar              9          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Bodnar              8          7 Logica
+Prelipcean Bodnar              7          7 Logica
+Prelipcean Ciobotariu          7          7 Logica
+Prelipcean Ciobotariu          7          7 Logica
+Prelipcean Ciobotariu          7          7 Logica
+Prelipcean Archip              4          7 Logica
+Prelipcean Archip              6          7 Logica
+Prelipcean Archip              7          7 Logica
+Prelipcean Bodnar              9          7 Logica
+Prelipcean Bodnar             10          7 Logica
+Prelipcean Bodnar             10          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Panaite             9          7 Logica
+Prelipcean Panaite             8          7 Logica
+Prelipcean Panaite            10          7 Logica
+Prelipcean Panaite            10          7 Logica
+Prelipcean Panaite             7          7 Logica
+Prelipcean Panaite            10          7 Logica
+Prelipcean Arhire              4          7 Logica
+Prelipcean Arhire              5          7 Logica
+Prelipcean Arhire              4          7 Logica
+Prelipcean Arhire             10          7 Logica
+Prelipcean Arhire              9          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Arhire              6          7 Logica
+Prelipcean Antonie             7          7 Logica
+Prelipcean Antonie             4          7 Logica
+Prelipcean Antonie            10          7 Logica
+Prelipcean Antonie             7          7 Logica
+Prelipcean Antonie             9          7 Logica
+Prelipcean Antonie             9          7 Logica
+Prelipcean Prelipcean          4          7 Logica
+Prelipcean Prelipcean          7          7 Logica
+Prelipcean Prelipcean          6          7 Logica
+Prelipcean Prelipcean          5          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Prelipcean          6          7 Logica
+Prelipcean Prelipcean          7          7 Logica
+Prelipcean Popescu             8          7 Logica
+Prelipcean Popescu             7          7 Logica
+Prelipcean Popescu             9          7 Logica
+Prelipcean Popescu            10          7 Logica
+Prelipcean Popescu             9          7 Logica
+Prelipcean Popescu             8          7 Logica
+Prelipcean Bodnar              9          6 Matematica
+Prelipcean Bodnar              8          6 Matematica
+Prelipcean Bodnar              7          6 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Ciobotariu          7          6 Matematica
+Prelipcean Ciobotariu          7          6 Matematica
+Prelipcean Ciobotariu          7          6 Matematica
+Prelipcean Archip              4          6 Matematica
+Prelipcean Archip              6          6 Matematica
+Prelipcean Archip              7          6 Matematica
+Prelipcean Bodnar              9          6 Matematica
+Prelipcean Bodnar             10          6 Matematica
+Prelipcean Bodnar             10          6 Matematica
+Prelipcean Panaite             9          6 Matematica
+Prelipcean Panaite             8          6 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Panaite            10          6 Matematica
+Prelipcean Panaite            10          6 Matematica
+Prelipcean Panaite             7          6 Matematica
+Prelipcean Panaite            10          6 Matematica
+Prelipcean Arhire              4          6 Matematica
+Prelipcean Arhire              5          6 Matematica
+Prelipcean Arhire              4          6 Matematica
+Prelipcean Arhire             10          6 Matematica
+Prelipcean Arhire              9          6 Matematica
+Prelipcean Arhire              6          6 Matematica
+Prelipcean Antonie             7          6 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Antonie             4          6 Matematica
+Prelipcean Antonie            10          6 Matematica
+Prelipcean Antonie             7          6 Matematica
+Prelipcean Antonie             9          6 Matematica
+Prelipcean Antonie             9          6 Matematica
+Prelipcean Prelipcean          4          6 Matematica
+Prelipcean Prelipcean          7          6 Matematica
+Prelipcean Prelipcean          6          6 Matematica
+Prelipcean Prelipcean          5          6 Matematica
+Prelipcean Prelipcean          6          6 Matematica
+Prelipcean Prelipcean          7          6 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Popescu             8          6 Matematica
+Prelipcean Popescu             7          6 Matematica
+Prelipcean Popescu             9          6 Matematica
+Prelipcean Popescu            10          6 Matematica
+Prelipcean Popescu             9          6 Matematica
+Prelipcean Popescu             8          6 Matematica
+Prelipcean Bodnar              9          5 OOP
+Prelipcean Bodnar              8          5 OOP
+Prelipcean Bodnar              7          5 OOP
+Prelipcean Ciobotariu          7          5 OOP
+Prelipcean Ciobotariu          7          5 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Ciobotariu          7          5 OOP
+Prelipcean Archip              4          5 OOP
+Prelipcean Archip              6          5 OOP
+Prelipcean Archip              7          5 OOP
+Prelipcean Bodnar              9          5 OOP
+Prelipcean Bodnar             10          5 OOP
+Prelipcean Bodnar             10          5 OOP
+Prelipcean Panaite             9          5 OOP
+Prelipcean Panaite             8          5 OOP
+Prelipcean Panaite            10          5 OOP
+Prelipcean Panaite            10          5 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Panaite             7          5 OOP
+Prelipcean Panaite            10          5 OOP
+Prelipcean Arhire              4          5 OOP
+Prelipcean Arhire              5          5 OOP
+Prelipcean Arhire              4          5 OOP
+Prelipcean Arhire             10          5 OOP
+Prelipcean Arhire              9          5 OOP
+Prelipcean Arhire              6          5 OOP
+Prelipcean Antonie             7          5 OOP
+Prelipcean Antonie             4          5 OOP
+Prelipcean Antonie            10          5 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Antonie             7          5 OOP
+Prelipcean Antonie             9          5 OOP
+Prelipcean Antonie             9          5 OOP
+Prelipcean Prelipcean          4          5 OOP
+Prelipcean Prelipcean          7          5 OOP
+Prelipcean Prelipcean          6          5 OOP
+Prelipcean Prelipcean          5          5 OOP
+Prelipcean Prelipcean          6          5 OOP
+Prelipcean Prelipcean          7          5 OOP
+Prelipcean Popescu             8          5 OOP
+Prelipcean Popescu             7          5 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Popescu             9          5 OOP
+Prelipcean Popescu            10          5 OOP
+Prelipcean Popescu             9          5 OOP
+Prelipcean Popescu             8          5 OOP
+Prelipcean Bodnar              9          6 BD
+Prelipcean Bodnar              8          6 BD
+Prelipcean Bodnar              7          6 BD
+Prelipcean Ciobotariu          7          6 BD
+Prelipcean Ciobotariu          7          6 BD
+Prelipcean Ciobotariu          7          6 BD
+Prelipcean Archip              4          6 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Archip              6          6 BD
+Prelipcean Archip              7          6 BD
+Prelipcean Bodnar              9          6 BD
+Prelipcean Bodnar             10          6 BD
+Prelipcean Bodnar             10          6 BD
+Prelipcean Panaite             9          6 BD
+Prelipcean Panaite             8          6 BD
+Prelipcean Panaite            10          6 BD
+Prelipcean Panaite            10          6 BD
+Prelipcean Panaite             7          6 BD
+Prelipcean Panaite            10          6 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Arhire              4          6 BD
+Prelipcean Arhire              5          6 BD
+Prelipcean Arhire              4          6 BD
+Prelipcean Arhire             10          6 BD
+Prelipcean Arhire              9          6 BD
+Prelipcean Arhire              6          6 BD
+Prelipcean Antonie             7          6 BD
+Prelipcean Antonie             4          6 BD
+Prelipcean Antonie            10          6 BD
+Prelipcean Antonie             7          6 BD
+Prelipcean Antonie             9          6 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Antonie             9          6 BD
+Prelipcean Prelipcean          4          6 BD
+Prelipcean Prelipcean          7          6 BD
+Prelipcean Prelipcean          6          6 BD
+Prelipcean Prelipcean          5          6 BD
+Prelipcean Prelipcean          6          6 BD
+Prelipcean Prelipcean          7          6 BD
+Prelipcean Popescu             8          6 BD
+Prelipcean Popescu             7          6 BD
+Prelipcean Popescu             9          6 BD
+Prelipcean Popescu            10          6 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Popescu             9          6 BD
+Prelipcean Popescu             8          6 BD
+Prelipcean Bodnar              9          7 Java
+Prelipcean Bodnar              8          7 Java
+Prelipcean Bodnar              7          7 Java
+Prelipcean Ciobotariu          7          7 Java
+Prelipcean Ciobotariu          7          7 Java
+Prelipcean Ciobotariu          7          7 Java
+Prelipcean Archip              4          7 Java
+Prelipcean Archip              6          7 Java
+Prelipcean Archip              7          7 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Bodnar              9          7 Java
+Prelipcean Bodnar             10          7 Java
+Prelipcean Bodnar             10          7 Java
+Prelipcean Panaite             9          7 Java
+Prelipcean Panaite             8          7 Java
+Prelipcean Panaite            10          7 Java
+Prelipcean Panaite            10          7 Java
+Prelipcean Panaite             7          7 Java
+Prelipcean Panaite            10          7 Java
+Prelipcean Arhire              4          7 Java
+Prelipcean Arhire              5          7 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Arhire              4          7 Java
+Prelipcean Arhire             10          7 Java
+Prelipcean Arhire              9          7 Java
+Prelipcean Arhire              6          7 Java
+Prelipcean Antonie             7          7 Java
+Prelipcean Antonie             4          7 Java
+Prelipcean Antonie            10          7 Java
+Prelipcean Antonie             7          7 Java
+Prelipcean Antonie             9          7 Java
+Prelipcean Antonie             9          7 Java
+Prelipcean Prelipcean          4          7 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Prelipcean          7          7 Java
+Prelipcean Prelipcean          6          7 Java
+Prelipcean Prelipcean          5          7 Java
+Prelipcean Prelipcean          6          7 Java
+Prelipcean Prelipcean          7          7 Java
+Prelipcean Popescu             8          7 Java
+Prelipcean Popescu             7          7 Java
+Prelipcean Popescu             9          7 Java
+Prelipcean Popescu            10          7 Java
+Prelipcean Popescu             9          7 Java
+Prelipcean Popescu             8          7 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Bodnar              9          4 Tehnologii Web
+Prelipcean Bodnar              8          4 Tehnologii Web
+Prelipcean Bodnar              7          4 Tehnologii Web
+Prelipcean Ciobotariu          7          4 Tehnologii Web
+Prelipcean Ciobotariu          7          4 Tehnologii Web
+Prelipcean Ciobotariu          7          4 Tehnologii Web
+Prelipcean Archip              4          4 Tehnologii Web
+Prelipcean Archip              6          4 Tehnologii Web
+Prelipcean Archip              7          4 Tehnologii Web
+Prelipcean Bodnar              9          4 Tehnologii Web
+Prelipcean Bodnar             10          4 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Bodnar             10          4 Tehnologii Web
+Prelipcean Panaite             9          4 Tehnologii Web
+Prelipcean Panaite             8          4 Tehnologii Web
+Prelipcean Panaite            10          4 Tehnologii Web
+Prelipcean Panaite            10          4 Tehnologii Web
+Prelipcean Panaite             7          4 Tehnologii Web
+Prelipcean Panaite            10          4 Tehnologii Web
+Prelipcean Arhire              4          4 Tehnologii Web
+Prelipcean Arhire              5          4 Tehnologii Web
+Prelipcean Arhire              4          4 Tehnologii Web
+Prelipcean Arhire             10          4 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Arhire              9          4 Tehnologii Web
+Prelipcean Arhire              6          4 Tehnologii Web
+Prelipcean Antonie             7          4 Tehnologii Web
+Prelipcean Antonie             4          4 Tehnologii Web
+Prelipcean Antonie            10          4 Tehnologii Web
+Prelipcean Antonie             7          4 Tehnologii Web
+Prelipcean Antonie             9          4 Tehnologii Web
+Prelipcean Antonie             9          4 Tehnologii Web
+Prelipcean Prelipcean          4          4 Tehnologii Web
+Prelipcean Prelipcean          7          4 Tehnologii Web
+Prelipcean Prelipcean          6          4 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Prelipcean          5          4 Tehnologii Web
+Prelipcean Prelipcean          6          4 Tehnologii Web
+Prelipcean Prelipcean          7          4 Tehnologii Web
+Prelipcean Popescu             8          4 Tehnologii Web
+Prelipcean Popescu             7          4 Tehnologii Web
+Prelipcean Popescu             9          4 Tehnologii Web
+Prelipcean Popescu            10          4 Tehnologii Web
+Prelipcean Popescu             9          4 Tehnologii Web
+Prelipcean Popescu             8          4 Tehnologii Web
+Antonie    Bodnar              9          9 Logica
+Antonie    Bodnar              8          9 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Bodnar              7          9 Logica
+Antonie    Ciobotariu          7          9 Logica
+Antonie    Ciobotariu          7          9 Logica
+Antonie    Ciobotariu          7          9 Logica
+Antonie    Archip              4          9 Logica
+Antonie    Archip              6          9 Logica
+Antonie    Archip              7          9 Logica
+Antonie    Bodnar              9          9 Logica
+Antonie    Bodnar             10          9 Logica
+Antonie    Bodnar             10          9 Logica
+Antonie    Panaite             9          9 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Panaite             8          9 Logica
+Antonie    Panaite            10          9 Logica
+Antonie    Panaite            10          9 Logica
+Antonie    Panaite             7          9 Logica
+Antonie    Panaite            10          9 Logica
+Antonie    Arhire              4          9 Logica
+Antonie    Arhire              5          9 Logica
+Antonie    Arhire              4          9 Logica
+Antonie    Arhire             10          9 Logica
+Antonie    Arhire              9          9 Logica
+Antonie    Arhire              6          9 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Antonie             7          9 Logica
+Antonie    Antonie             4          9 Logica
+Antonie    Antonie            10          9 Logica
+Antonie    Antonie             7          9 Logica
+Antonie    Antonie             9          9 Logica
+Antonie    Antonie             9          9 Logica
+Antonie    Prelipcean          4          9 Logica
+Antonie    Prelipcean          7          9 Logica
+Antonie    Prelipcean          6          9 Logica
+Antonie    Prelipcean          5          9 Logica
+Antonie    Prelipcean          6          9 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Prelipcean          7          9 Logica
+Antonie    Popescu             8          9 Logica
+Antonie    Popescu             7          9 Logica
+Antonie    Popescu             9          9 Logica
+Antonie    Popescu            10          9 Logica
+Antonie    Popescu             9          9 Logica
+Antonie    Popescu             8          9 Logica
+Antonie    Bodnar              9          9 Matematica
+Antonie    Bodnar              8          9 Matematica
+Antonie    Bodnar              7          9 Matematica
+Antonie    Ciobotariu          7          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Ciobotariu          7          9 Matematica
+Antonie    Ciobotariu          7          9 Matematica
+Antonie    Archip              4          9 Matematica
+Antonie    Archip              6          9 Matematica
+Antonie    Archip              7          9 Matematica
+Antonie    Bodnar              9          9 Matematica
+Antonie    Bodnar             10          9 Matematica
+Antonie    Bodnar             10          9 Matematica
+Antonie    Panaite             9          9 Matematica
+Antonie    Panaite             8          9 Matematica
+Antonie    Panaite            10          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Panaite            10          9 Matematica
+Antonie    Panaite             7          9 Matematica
+Antonie    Panaite            10          9 Matematica
+Antonie    Arhire              4          9 Matematica
+Antonie    Arhire              5          9 Matematica
+Antonie    Arhire              4          9 Matematica
+Antonie    Arhire             10          9 Matematica
+Antonie    Arhire              9          9 Matematica
+Antonie    Arhire              6          9 Matematica
+Antonie    Antonie             7          9 Matematica
+Antonie    Antonie             4          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Antonie            10          9 Matematica
+Antonie    Antonie             7          9 Matematica
+Antonie    Antonie             9          9 Matematica
+Antonie    Antonie             9          9 Matematica
+Antonie    Prelipcean          4          9 Matematica
+Antonie    Prelipcean          7          9 Matematica
+Antonie    Prelipcean          6          9 Matematica
+Antonie    Prelipcean          5          9 Matematica
+Antonie    Prelipcean          6          9 Matematica
+Antonie    Prelipcean          7          9 Matematica
+Antonie    Popescu             8          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Popescu             7          9 Matematica
+Antonie    Popescu             9          9 Matematica
+Antonie    Popescu            10          9 Matematica
+Antonie    Popescu             9          9 Matematica
+Antonie    Popescu             8          9 Matematica
+Antonie    Bodnar              9          7 OOP
+Antonie    Bodnar              8          7 OOP
+Antonie    Bodnar              7          7 OOP
+Antonie    Ciobotariu          7          7 OOP
+Antonie    Ciobotariu          7          7 OOP
+Antonie    Ciobotariu          7          7 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Archip              4          7 OOP
+Antonie    Archip              6          7 OOP
+Antonie    Archip              7          7 OOP
+Antonie    Bodnar              9          7 OOP
+Antonie    Bodnar             10          7 OOP
+Antonie    Bodnar             10          7 OOP
+Antonie    Panaite             9          7 OOP
+Antonie    Panaite             8          7 OOP
+Antonie    Panaite            10          7 OOP
+Antonie    Panaite            10          7 OOP
+Antonie    Panaite             7          7 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Panaite            10          7 OOP
+Antonie    Arhire              4          7 OOP
+Antonie    Arhire              5          7 OOP
+Antonie    Arhire              4          7 OOP
+Antonie    Arhire             10          7 OOP
+Antonie    Arhire              9          7 OOP
+Antonie    Arhire              6          7 OOP
+Antonie    Antonie             7          7 OOP
+Antonie    Antonie             4          7 OOP
+Antonie    Antonie            10          7 OOP
+Antonie    Antonie             7          7 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Antonie             9          7 OOP
+Antonie    Antonie             9          7 OOP
+Antonie    Prelipcean          4          7 OOP
+Antonie    Prelipcean          7          7 OOP
+Antonie    Prelipcean          6          7 OOP
+Antonie    Prelipcean          5          7 OOP
+Antonie    Prelipcean          6          7 OOP
+Antonie    Prelipcean          7          7 OOP
+Antonie    Popescu             8          7 OOP
+Antonie    Popescu             7          7 OOP
+Antonie    Popescu             9          7 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Popescu            10          7 OOP
+Antonie    Popescu             9          7 OOP
+Antonie    Popescu             8          7 OOP
+Antonie    Bodnar              9         10 BD
+Antonie    Bodnar              8         10 BD
+Antonie    Bodnar              7         10 BD
+Antonie    Ciobotariu          7         10 BD
+Antonie    Ciobotariu          7         10 BD
+Antonie    Ciobotariu          7         10 BD
+Antonie    Archip              4         10 BD
+Antonie    Archip              6         10 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Archip              7         10 BD
+Antonie    Bodnar              9         10 BD
+Antonie    Bodnar             10         10 BD
+Antonie    Bodnar             10         10 BD
+Antonie    Panaite             9         10 BD
+Antonie    Panaite             8         10 BD
+Antonie    Panaite            10         10 BD
+Antonie    Panaite            10         10 BD
+Antonie    Panaite             7         10 BD
+Antonie    Panaite            10         10 BD
+Antonie    Arhire              4         10 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Arhire              5         10 BD
+Antonie    Arhire              4         10 BD
+Antonie    Arhire             10         10 BD
+Antonie    Arhire              9         10 BD
+Antonie    Arhire              6         10 BD
+Antonie    Antonie             7         10 BD
+Antonie    Antonie             4         10 BD
+Antonie    Antonie            10         10 BD
+Antonie    Antonie             7         10 BD
+Antonie    Antonie             9         10 BD
+Antonie    Antonie             9         10 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Prelipcean          4         10 BD
+Antonie    Prelipcean          7         10 BD
+Antonie    Prelipcean          6         10 BD
+Antonie    Prelipcean          5         10 BD
+Antonie    Prelipcean          6         10 BD
+Antonie    Prelipcean          7         10 BD
+Antonie    Popescu             8         10 BD
+Antonie    Popescu             7         10 BD
+Antonie    Popescu             9         10 BD
+Antonie    Popescu            10         10 BD
+Antonie    Popescu             9         10 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Popescu             8         10 BD
+Antonie    Bodnar              9          4 Java
+Antonie    Bodnar              8          4 Java
+Antonie    Bodnar              7          4 Java
+Antonie    Ciobotariu          7          4 Java
+Antonie    Ciobotariu          7          4 Java
+Antonie    Ciobotariu          7          4 Java
+Antonie    Archip              4          4 Java
+Antonie    Archip              6          4 Java
+Antonie    Archip              7          4 Java
+Antonie    Bodnar              9          4 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Bodnar             10          4 Java
+Antonie    Bodnar             10          4 Java
+Antonie    Panaite             9          4 Java
+Antonie    Panaite             8          4 Java
+Antonie    Panaite            10          4 Java
+Antonie    Panaite            10          4 Java
+Antonie    Panaite             7          4 Java
+Antonie    Panaite            10          4 Java
+Antonie    Arhire              4          4 Java
+Antonie    Arhire              5          4 Java
+Antonie    Arhire              4          4 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Arhire             10          4 Java
+Antonie    Arhire              9          4 Java
+Antonie    Arhire              6          4 Java
+Antonie    Antonie             7          4 Java
+Antonie    Antonie             4          4 Java
+Antonie    Antonie            10          4 Java
+Antonie    Antonie             7          4 Java
+Antonie    Antonie             9          4 Java
+Antonie    Antonie             9          4 Java
+Antonie    Prelipcean          4          4 Java
+Antonie    Prelipcean          7          4 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Prelipcean          6          4 Java
+Antonie    Prelipcean          5          4 Java
+Antonie    Prelipcean          6          4 Java
+Antonie    Prelipcean          7          4 Java
+Antonie    Popescu             8          4 Java
+Antonie    Popescu             7          4 Java
+Antonie    Popescu             9          4 Java
+Antonie    Popescu            10          4 Java
+Antonie    Popescu             9          4 Java
+Antonie    Popescu             8          4 Java
+Antonie    Bodnar              9          7 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Bodnar              8          7 Tehnologii Web
+Antonie    Bodnar              7          7 Tehnologii Web
+Antonie    Ciobotariu          7          7 Tehnologii Web
+Antonie    Ciobotariu          7          7 Tehnologii Web
+Antonie    Ciobotariu          7          7 Tehnologii Web
+Antonie    Archip              4          7 Tehnologii Web
+Antonie    Archip              6          7 Tehnologii Web
+Antonie    Archip              7          7 Tehnologii Web
+Antonie    Bodnar              9          7 Tehnologii Web
+Antonie    Bodnar             10          7 Tehnologii Web
+Antonie    Bodnar             10          7 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Panaite             9          7 Tehnologii Web
+Antonie    Panaite             8          7 Tehnologii Web
+Antonie    Panaite            10          7 Tehnologii Web
+Antonie    Panaite            10          7 Tehnologii Web
+Antonie    Panaite             7          7 Tehnologii Web
+Antonie    Panaite            10          7 Tehnologii Web
+Antonie    Arhire              4          7 Tehnologii Web
+Antonie    Arhire              5          7 Tehnologii Web
+Antonie    Arhire              4          7 Tehnologii Web
+Antonie    Arhire             10          7 Tehnologii Web
+Antonie    Arhire              9          7 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Arhire              6          7 Tehnologii Web
+Antonie    Antonie             7          7 Tehnologii Web
+Antonie    Antonie             4          7 Tehnologii Web
+Antonie    Antonie            10          7 Tehnologii Web
+Antonie    Antonie             7          7 Tehnologii Web
+Antonie    Antonie             9          7 Tehnologii Web
+Antonie    Antonie             9          7 Tehnologii Web
+Antonie    Prelipcean          4          7 Tehnologii Web
+Antonie    Prelipcean          7          7 Tehnologii Web
+Antonie    Prelipcean          6          7 Tehnologii Web
+Antonie    Prelipcean          5          7 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Prelipcean          6          7 Tehnologii Web
+Antonie    Prelipcean          7          7 Tehnologii Web
+Antonie    Popescu             8          7 Tehnologii Web
+Antonie    Popescu             7          7 Tehnologii Web
+Antonie    Popescu             9          7 Tehnologii Web
+Antonie    Popescu            10          7 Tehnologii Web
+Antonie    Popescu             9          7 Tehnologii Web
+Antonie    Popescu             8          7 Tehnologii Web
+Arhire     Bodnar              9          6 Logica
+Arhire     Bodnar              8          6 Logica
+Arhire     Bodnar              7          6 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Ciobotariu          7          6 Logica
+Arhire     Ciobotariu          7          6 Logica
+Arhire     Ciobotariu          7          6 Logica
+Arhire     Archip              4          6 Logica
+Arhire     Archip              6          6 Logica
+Arhire     Archip              7          6 Logica
+Arhire     Bodnar              9          6 Logica
+Arhire     Bodnar             10          6 Logica
+Arhire     Bodnar             10          6 Logica
+Arhire     Panaite             9          6 Logica
+Arhire     Panaite             8          6 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Panaite            10          6 Logica
+Arhire     Panaite            10          6 Logica
+Arhire     Panaite             7          6 Logica
+Arhire     Panaite            10          6 Logica
+Arhire     Arhire              4          6 Logica
+Arhire     Arhire              5          6 Logica
+Arhire     Arhire              4          6 Logica
+Arhire     Arhire             10          6 Logica
+Arhire     Arhire              9          6 Logica
+Arhire     Arhire              6          6 Logica
+Arhire     Antonie             7          6 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Antonie             4          6 Logica
+Arhire     Antonie            10          6 Logica
+Arhire     Antonie             7          6 Logica
+Arhire     Antonie             9          6 Logica
+Arhire     Antonie             9          6 Logica
+Arhire     Prelipcean          4          6 Logica
+Arhire     Prelipcean          7          6 Logica
+Arhire     Prelipcean          6          6 Logica
+Arhire     Prelipcean          5          6 Logica
+Arhire     Prelipcean          6          6 Logica
+Arhire     Prelipcean          7          6 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Popescu             8          6 Logica
+Arhire     Popescu             7          6 Logica
+Arhire     Popescu             9          6 Logica
+Arhire     Popescu            10          6 Logica
+Arhire     Popescu             9          6 Logica
+Arhire     Popescu             8          6 Logica
+Arhire     Bodnar              9          9 Matematica
+Arhire     Bodnar              8          9 Matematica
+Arhire     Bodnar              7          9 Matematica
+Arhire     Ciobotariu          7          9 Matematica
+Arhire     Ciobotariu          7          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Ciobotariu          7          9 Matematica
+Arhire     Archip              4          9 Matematica
+Arhire     Archip              6          9 Matematica
+Arhire     Archip              7          9 Matematica
+Arhire     Bodnar              9          9 Matematica
+Arhire     Bodnar             10          9 Matematica
+Arhire     Bodnar             10          9 Matematica
+Arhire     Panaite             9          9 Matematica
+Arhire     Panaite             8          9 Matematica
+Arhire     Panaite            10          9 Matematica
+Arhire     Panaite            10          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Panaite             7          9 Matematica
+Arhire     Panaite            10          9 Matematica
+Arhire     Arhire              4          9 Matematica
+Arhire     Arhire              5          9 Matematica
+Arhire     Arhire              4          9 Matematica
+Arhire     Arhire             10          9 Matematica
+Arhire     Arhire              9          9 Matematica
+Arhire     Arhire              6          9 Matematica
+Arhire     Antonie             7          9 Matematica
+Arhire     Antonie             4          9 Matematica
+Arhire     Antonie            10          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Antonie             7          9 Matematica
+Arhire     Antonie             9          9 Matematica
+Arhire     Antonie             9          9 Matematica
+Arhire     Prelipcean          4          9 Matematica
+Arhire     Prelipcean          7          9 Matematica
+Arhire     Prelipcean          6          9 Matematica
+Arhire     Prelipcean          5          9 Matematica
+Arhire     Prelipcean          6          9 Matematica
+Arhire     Prelipcean          7          9 Matematica
+Arhire     Popescu             8          9 Matematica
+Arhire     Popescu             7          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Popescu             9          9 Matematica
+Arhire     Popescu            10          9 Matematica
+Arhire     Popescu             9          9 Matematica
+Arhire     Popescu             8          9 Matematica
+Arhire     Bodnar              9         10 OOP
+Arhire     Bodnar              8         10 OOP
+Arhire     Bodnar              7         10 OOP
+Arhire     Ciobotariu          7         10 OOP
+Arhire     Ciobotariu          7         10 OOP
+Arhire     Ciobotariu          7         10 OOP
+Arhire     Archip              4         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Archip              6         10 OOP
+Arhire     Archip              7         10 OOP
+Arhire     Bodnar              9         10 OOP
+Arhire     Bodnar             10         10 OOP
+Arhire     Bodnar             10         10 OOP
+Arhire     Panaite             9         10 OOP
+Arhire     Panaite             8         10 OOP
+Arhire     Panaite            10         10 OOP
+Arhire     Panaite            10         10 OOP
+Arhire     Panaite             7         10 OOP
+Arhire     Panaite            10         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Arhire              4         10 OOP
+Arhire     Arhire              5         10 OOP
+Arhire     Arhire              4         10 OOP
+Arhire     Arhire             10         10 OOP
+Arhire     Arhire              9         10 OOP
+Arhire     Arhire              6         10 OOP
+Arhire     Antonie             7         10 OOP
+Arhire     Antonie             4         10 OOP
+Arhire     Antonie            10         10 OOP
+Arhire     Antonie             7         10 OOP
+Arhire     Antonie             9         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Antonie             9         10 OOP
+Arhire     Prelipcean          4         10 OOP
+Arhire     Prelipcean          7         10 OOP
+Arhire     Prelipcean          6         10 OOP
+Arhire     Prelipcean          5         10 OOP
+Arhire     Prelipcean          6         10 OOP
+Arhire     Prelipcean          7         10 OOP
+Arhire     Popescu             8         10 OOP
+Arhire     Popescu             7         10 OOP
+Arhire     Popescu             9         10 OOP
+Arhire     Popescu            10         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Popescu             9         10 OOP
+Arhire     Popescu             8         10 OOP
+Arhire     Bodnar              9          4 BD
+Arhire     Bodnar              8          4 BD
+Arhire     Bodnar              7          4 BD
+Arhire     Ciobotariu          7          4 BD
+Arhire     Ciobotariu          7          4 BD
+Arhire     Ciobotariu          7          4 BD
+Arhire     Archip              4          4 BD
+Arhire     Archip              6          4 BD
+Arhire     Archip              7          4 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Bodnar              9          4 BD
+Arhire     Bodnar             10          4 BD
+Arhire     Bodnar             10          4 BD
+Arhire     Panaite             9          4 BD
+Arhire     Panaite             8          4 BD
+Arhire     Panaite            10          4 BD
+Arhire     Panaite            10          4 BD
+Arhire     Panaite             7          4 BD
+Arhire     Panaite            10          4 BD
+Arhire     Arhire              4          4 BD
+Arhire     Arhire              5          4 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Arhire              4          4 BD
+Arhire     Arhire             10          4 BD
+Arhire     Arhire              9          4 BD
+Arhire     Arhire              6          4 BD
+Arhire     Antonie             7          4 BD
+Arhire     Antonie             4          4 BD
+Arhire     Antonie            10          4 BD
+Arhire     Antonie             7          4 BD
+Arhire     Antonie             9          4 BD
+Arhire     Antonie             9          4 BD
+Arhire     Prelipcean          4          4 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Prelipcean          7          4 BD
+Arhire     Prelipcean          6          4 BD
+Arhire     Prelipcean          5          4 BD
+Arhire     Prelipcean          6          4 BD
+Arhire     Prelipcean          7          4 BD
+Arhire     Popescu             8          4 BD
+Arhire     Popescu             7          4 BD
+Arhire     Popescu             9          4 BD
+Arhire     Popescu            10          4 BD
+Arhire     Popescu             9          4 BD
+Arhire     Popescu             8          4 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Bodnar              9          5 Java
+Arhire     Bodnar              8          5 Java
+Arhire     Bodnar              7          5 Java
+Arhire     Ciobotariu          7          5 Java
+Arhire     Ciobotariu          7          5 Java
+Arhire     Ciobotariu          7          5 Java
+Arhire     Archip              4          5 Java
+Arhire     Archip              6          5 Java
+Arhire     Archip              7          5 Java
+Arhire     Bodnar              9          5 Java
+Arhire     Bodnar             10          5 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Bodnar             10          5 Java
+Arhire     Panaite             9          5 Java
+Arhire     Panaite             8          5 Java
+Arhire     Panaite            10          5 Java
+Arhire     Panaite            10          5 Java
+Arhire     Panaite             7          5 Java
+Arhire     Panaite            10          5 Java
+Arhire     Arhire              4          5 Java
+Arhire     Arhire              5          5 Java
+Arhire     Arhire              4          5 Java
+Arhire     Arhire             10          5 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Arhire              9          5 Java
+Arhire     Arhire              6          5 Java
+Arhire     Antonie             7          5 Java
+Arhire     Antonie             4          5 Java
+Arhire     Antonie            10          5 Java
+Arhire     Antonie             7          5 Java
+Arhire     Antonie             9          5 Java
+Arhire     Antonie             9          5 Java
+Arhire     Prelipcean          4          5 Java
+Arhire     Prelipcean          7          5 Java
+Arhire     Prelipcean          6          5 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Prelipcean          5          5 Java
+Arhire     Prelipcean          6          5 Java
+Arhire     Prelipcean          7          5 Java
+Arhire     Popescu             8          5 Java
+Arhire     Popescu             7          5 Java
+Arhire     Popescu             9          5 Java
+Arhire     Popescu            10          5 Java
+Arhire     Popescu             9          5 Java
+Arhire     Popescu             8          5 Java
+Arhire     Bodnar              9          4 Tehnologii Web
+Arhire     Bodnar              8          4 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Bodnar              7          4 Tehnologii Web
+Arhire     Ciobotariu          7          4 Tehnologii Web
+Arhire     Ciobotariu          7          4 Tehnologii Web
+Arhire     Ciobotariu          7          4 Tehnologii Web
+Arhire     Archip              4          4 Tehnologii Web
+Arhire     Archip              6          4 Tehnologii Web
+Arhire     Archip              7          4 Tehnologii Web
+Arhire     Bodnar              9          4 Tehnologii Web
+Arhire     Bodnar             10          4 Tehnologii Web
+Arhire     Bodnar             10          4 Tehnologii Web
+Arhire     Panaite             9          4 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Panaite             8          4 Tehnologii Web
+Arhire     Panaite            10          4 Tehnologii Web
+Arhire     Panaite            10          4 Tehnologii Web
+Arhire     Panaite             7          4 Tehnologii Web
+Arhire     Panaite            10          4 Tehnologii Web
+Arhire     Arhire              4          4 Tehnologii Web
+Arhire     Arhire              5          4 Tehnologii Web
+Arhire     Arhire              4          4 Tehnologii Web
+Arhire     Arhire             10          4 Tehnologii Web
+Arhire     Arhire              9          4 Tehnologii Web
+Arhire     Arhire              6          4 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Antonie             7          4 Tehnologii Web
+Arhire     Antonie             4          4 Tehnologii Web
+Arhire     Antonie            10          4 Tehnologii Web
+Arhire     Antonie             7          4 Tehnologii Web
+Arhire     Antonie             9          4 Tehnologii Web
+Arhire     Antonie             9          4 Tehnologii Web
+Arhire     Prelipcean          4          4 Tehnologii Web
+Arhire     Prelipcean          7          4 Tehnologii Web
+Arhire     Prelipcean          6          4 Tehnologii Web
+Arhire     Prelipcean          5          4 Tehnologii Web
+Arhire     Prelipcean          6          4 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Prelipcean          7          4 Tehnologii Web
+Arhire     Popescu             8          4 Tehnologii Web
+Arhire     Popescu             7          4 Tehnologii Web
+Arhire     Popescu             9          4 Tehnologii Web
+Arhire     Popescu            10          4 Tehnologii Web
+Arhire     Popescu             9          4 Tehnologii Web
+Arhire     Popescu             8          4 Tehnologii Web
+Panaite    Bodnar              9         10 Logica
+Panaite    Bodnar              8         10 Logica
+Panaite    Bodnar              7         10 Logica
+Panaite    Ciobotariu          7         10 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Ciobotariu          7         10 Logica
+Panaite    Ciobotariu          7         10 Logica
+Panaite    Archip              4         10 Logica
+Panaite    Archip              6         10 Logica
+Panaite    Archip              7         10 Logica
+Panaite    Bodnar              9         10 Logica
+Panaite    Bodnar             10         10 Logica
+Panaite    Bodnar             10         10 Logica
+Panaite    Panaite             9         10 Logica
+Panaite    Panaite             8         10 Logica
+Panaite    Panaite            10         10 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Panaite            10         10 Logica
+Panaite    Panaite             7         10 Logica
+Panaite    Panaite            10         10 Logica
+Panaite    Arhire              4         10 Logica
+Panaite    Arhire              5         10 Logica
+Panaite    Arhire              4         10 Logica
+Panaite    Arhire             10         10 Logica
+Panaite    Arhire              9         10 Logica
+Panaite    Arhire              6         10 Logica
+Panaite    Antonie             7         10 Logica
+Panaite    Antonie             4         10 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Antonie            10         10 Logica
+Panaite    Antonie             7         10 Logica
+Panaite    Antonie             9         10 Logica
+Panaite    Antonie             9         10 Logica
+Panaite    Prelipcean          4         10 Logica
+Panaite    Prelipcean          7         10 Logica
+Panaite    Prelipcean          6         10 Logica
+Panaite    Prelipcean          5         10 Logica
+Panaite    Prelipcean          6         10 Logica
+Panaite    Prelipcean          7         10 Logica
+Panaite    Popescu             8         10 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Popescu             7         10 Logica
+Panaite    Popescu             9         10 Logica
+Panaite    Popescu            10         10 Logica
+Panaite    Popescu             9         10 Logica
+Panaite    Popescu             8         10 Logica
+Panaite    Bodnar              9          7 Matematica
+Panaite    Bodnar              8          7 Matematica
+Panaite    Bodnar              7          7 Matematica
+Panaite    Ciobotariu          7          7 Matematica
+Panaite    Ciobotariu          7          7 Matematica
+Panaite    Ciobotariu          7          7 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Archip              4          7 Matematica
+Panaite    Archip              6          7 Matematica
+Panaite    Archip              7          7 Matematica
+Panaite    Bodnar              9          7 Matematica
+Panaite    Bodnar             10          7 Matematica
+Panaite    Bodnar             10          7 Matematica
+Panaite    Panaite             9          7 Matematica
+Panaite    Panaite             8          7 Matematica
+Panaite    Panaite            10          7 Matematica
+Panaite    Panaite            10          7 Matematica
+Panaite    Panaite             7          7 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Panaite            10          7 Matematica
+Panaite    Arhire              4          7 Matematica
+Panaite    Arhire              5          7 Matematica
+Panaite    Arhire              4          7 Matematica
+Panaite    Arhire             10          7 Matematica
+Panaite    Arhire              9          7 Matematica
+Panaite    Arhire              6          7 Matematica
+Panaite    Antonie             7          7 Matematica
+Panaite    Antonie             4          7 Matematica
+Panaite    Antonie            10          7 Matematica
+Panaite    Antonie             7          7 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Antonie             9          7 Matematica
+Panaite    Antonie             9          7 Matematica
+Panaite    Prelipcean          4          7 Matematica
+Panaite    Prelipcean          7          7 Matematica
+Panaite    Prelipcean          6          7 Matematica
+Panaite    Prelipcean          5          7 Matematica
+Panaite    Prelipcean          6          7 Matematica
+Panaite    Prelipcean          7          7 Matematica
+Panaite    Popescu             8          7 Matematica
+Panaite    Popescu             7          7 Matematica
+Panaite    Popescu             9          7 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Popescu            10          7 Matematica
+Panaite    Popescu             9          7 Matematica
+Panaite    Popescu             8          7 Matematica
+Panaite    Bodnar              9         10 OOP
+Panaite    Bodnar              8         10 OOP
+Panaite    Bodnar              7         10 OOP
+Panaite    Ciobotariu          7         10 OOP
+Panaite    Ciobotariu          7         10 OOP
+Panaite    Ciobotariu          7         10 OOP
+Panaite    Archip              4         10 OOP
+Panaite    Archip              6         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Archip              7         10 OOP
+Panaite    Bodnar              9         10 OOP
+Panaite    Bodnar             10         10 OOP
+Panaite    Bodnar             10         10 OOP
+Panaite    Panaite             9         10 OOP
+Panaite    Panaite             8         10 OOP
+Panaite    Panaite            10         10 OOP
+Panaite    Panaite            10         10 OOP
+Panaite    Panaite             7         10 OOP
+Panaite    Panaite            10         10 OOP
+Panaite    Arhire              4         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Arhire              5         10 OOP
+Panaite    Arhire              4         10 OOP
+Panaite    Arhire             10         10 OOP
+Panaite    Arhire              9         10 OOP
+Panaite    Arhire              6         10 OOP
+Panaite    Antonie             7         10 OOP
+Panaite    Antonie             4         10 OOP
+Panaite    Antonie            10         10 OOP
+Panaite    Antonie             7         10 OOP
+Panaite    Antonie             9         10 OOP
+Panaite    Antonie             9         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Prelipcean          4         10 OOP
+Panaite    Prelipcean          7         10 OOP
+Panaite    Prelipcean          6         10 OOP
+Panaite    Prelipcean          5         10 OOP
+Panaite    Prelipcean          6         10 OOP
+Panaite    Prelipcean          7         10 OOP
+Panaite    Popescu             8         10 OOP
+Panaite    Popescu             7         10 OOP
+Panaite    Popescu             9         10 OOP
+Panaite    Popescu            10         10 OOP
+Panaite    Popescu             9         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Popescu             8         10 OOP
+Panaite    Bodnar              9         10 BD
+Panaite    Bodnar              8         10 BD
+Panaite    Bodnar              7         10 BD
+Panaite    Ciobotariu          7         10 BD
+Panaite    Ciobotariu          7         10 BD
+Panaite    Ciobotariu          7         10 BD
+Panaite    Archip              4         10 BD
+Panaite    Archip              6         10 BD
+Panaite    Archip              7         10 BD
+Panaite    Bodnar              9         10 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Bodnar             10         10 BD
+Panaite    Bodnar             10         10 BD
+Panaite    Panaite             9         10 BD
+Panaite    Panaite             8         10 BD
+Panaite    Panaite            10         10 BD
+Panaite    Panaite            10         10 BD
+Panaite    Panaite             7         10 BD
+Panaite    Panaite            10         10 BD
+Panaite    Arhire              4         10 BD
+Panaite    Arhire              5         10 BD
+Panaite    Arhire              4         10 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Arhire             10         10 BD
+Panaite    Arhire              9         10 BD
+Panaite    Arhire              6         10 BD
+Panaite    Antonie             7         10 BD
+Panaite    Antonie             4         10 BD
+Panaite    Antonie            10         10 BD
+Panaite    Antonie             7         10 BD
+Panaite    Antonie             9         10 BD
+Panaite    Antonie             9         10 BD
+Panaite    Prelipcean          4         10 BD
+Panaite    Prelipcean          7         10 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Prelipcean          6         10 BD
+Panaite    Prelipcean          5         10 BD
+Panaite    Prelipcean          6         10 BD
+Panaite    Prelipcean          7         10 BD
+Panaite    Popescu             8         10 BD
+Panaite    Popescu             7         10 BD
+Panaite    Popescu             9         10 BD
+Panaite    Popescu            10         10 BD
+Panaite    Popescu             9         10 BD
+Panaite    Popescu             8         10 BD
+Panaite    Bodnar              9          8 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Bodnar              8          8 Java
+Panaite    Bodnar              7          8 Java
+Panaite    Ciobotariu          7          8 Java
+Panaite    Ciobotariu          7          8 Java
+Panaite    Ciobotariu          7          8 Java
+Panaite    Archip              4          8 Java
+Panaite    Archip              6          8 Java
+Panaite    Archip              7          8 Java
+Panaite    Bodnar              9          8 Java
+Panaite    Bodnar             10          8 Java
+Panaite    Bodnar             10          8 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Panaite             9          8 Java
+Panaite    Panaite             8          8 Java
+Panaite    Panaite            10          8 Java
+Panaite    Panaite            10          8 Java
+Panaite    Panaite             7          8 Java
+Panaite    Panaite            10          8 Java
+Panaite    Arhire              4          8 Java
+Panaite    Arhire              5          8 Java
+Panaite    Arhire              4          8 Java
+Panaite    Arhire             10          8 Java
+Panaite    Arhire              9          8 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Arhire              6          8 Java
+Panaite    Antonie             7          8 Java
+Panaite    Antonie             4          8 Java
+Panaite    Antonie            10          8 Java
+Panaite    Antonie             7          8 Java
+Panaite    Antonie             9          8 Java
+Panaite    Antonie             9          8 Java
+Panaite    Prelipcean          4          8 Java
+Panaite    Prelipcean          7          8 Java
+Panaite    Prelipcean          6          8 Java
+Panaite    Prelipcean          5          8 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Prelipcean          6          8 Java
+Panaite    Prelipcean          7          8 Java
+Panaite    Popescu             8          8 Java
+Panaite    Popescu             7          8 Java
+Panaite    Popescu             9          8 Java
+Panaite    Popescu            10          8 Java
+Panaite    Popescu             9          8 Java
+Panaite    Popescu             8          8 Java
+Panaite    Bodnar              9          9 Tehnologii Web
+Panaite    Bodnar              8          9 Tehnologii Web
+Panaite    Bodnar              7          9 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Ciobotariu          7          9 Tehnologii Web
+Panaite    Ciobotariu          7          9 Tehnologii Web
+Panaite    Ciobotariu          7          9 Tehnologii Web
+Panaite    Archip              4          9 Tehnologii Web
+Panaite    Archip              6          9 Tehnologii Web
+Panaite    Archip              7          9 Tehnologii Web
+Panaite    Bodnar              9          9 Tehnologii Web
+Panaite    Bodnar             10          9 Tehnologii Web
+Panaite    Bodnar             10          9 Tehnologii Web
+Panaite    Panaite             9          9 Tehnologii Web
+Panaite    Panaite             8          9 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Panaite            10          9 Tehnologii Web
+Panaite    Panaite            10          9 Tehnologii Web
+Panaite    Panaite             7          9 Tehnologii Web
+Panaite    Panaite            10          9 Tehnologii Web
+Panaite    Arhire              4          9 Tehnologii Web
+Panaite    Arhire              5          9 Tehnologii Web
+Panaite    Arhire              4          9 Tehnologii Web
+Panaite    Arhire             10          9 Tehnologii Web
+Panaite    Arhire              9          9 Tehnologii Web
+Panaite    Arhire              6          9 Tehnologii Web
+Panaite    Antonie             7          9 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Antonie             4          9 Tehnologii Web
+Panaite    Antonie            10          9 Tehnologii Web
+Panaite    Antonie             7          9 Tehnologii Web
+Panaite    Antonie             9          9 Tehnologii Web
+Panaite    Antonie             9          9 Tehnologii Web
+Panaite    Prelipcean          4          9 Tehnologii Web
+Panaite    Prelipcean          7          9 Tehnologii Web
+Panaite    Prelipcean          6          9 Tehnologii Web
+Panaite    Prelipcean          5          9 Tehnologii Web
+Panaite    Prelipcean          6          9 Tehnologii Web
+Panaite    Prelipcean          7          9 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Popescu             8          9 Tehnologii Web
+Panaite    Popescu             7          9 Tehnologii Web
+Panaite    Popescu             9          9 Tehnologii Web
+Panaite    Popescu            10          9 Tehnologii Web
+Panaite    Popescu             9          9 Tehnologii Web
+Panaite    Popescu             8          9 Tehnologii Web
+Bodnar     Bodnar              9         10 Logica
+Bodnar     Bodnar              8         10 Logica
+Bodnar     Bodnar              7         10 Logica
+Bodnar     Ciobotariu          7         10 Logica
+Bodnar     Ciobotariu          7         10 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Ciobotariu          7         10 Logica
+Bodnar     Archip              4         10 Logica
+Bodnar     Archip              6         10 Logica
+Bodnar     Archip              7         10 Logica
+Bodnar     Bodnar              9         10 Logica
+Bodnar     Bodnar             10         10 Logica
+Bodnar     Bodnar             10         10 Logica
+Bodnar     Panaite             9         10 Logica
+Bodnar     Panaite             8         10 Logica
+Bodnar     Panaite            10         10 Logica
+Bodnar     Panaite            10         10 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Panaite             7         10 Logica
+Bodnar     Panaite            10         10 Logica
+Bodnar     Arhire              4         10 Logica
+Bodnar     Arhire              5         10 Logica
+Bodnar     Arhire              4         10 Logica
+Bodnar     Arhire             10         10 Logica
+Bodnar     Arhire              9         10 Logica
+Bodnar     Arhire              6         10 Logica
+Bodnar     Antonie             7         10 Logica
+Bodnar     Antonie             4         10 Logica
+Bodnar     Antonie            10         10 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Antonie             7         10 Logica
+Bodnar     Antonie             9         10 Logica
+Bodnar     Antonie             9         10 Logica
+Bodnar     Prelipcean          4         10 Logica
+Bodnar     Prelipcean          7         10 Logica
+Bodnar     Prelipcean          6         10 Logica
+Bodnar     Prelipcean          5         10 Logica
+Bodnar     Prelipcean          6         10 Logica
+Bodnar     Prelipcean          7         10 Logica
+Bodnar     Popescu             8         10 Logica
+Bodnar     Popescu             7         10 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Popescu             9         10 Logica
+Bodnar     Popescu            10         10 Logica
+Bodnar     Popescu             9         10 Logica
+Bodnar     Popescu             8         10 Logica
+Bodnar     Bodnar              9         10 Matematica
+Bodnar     Bodnar              8         10 Matematica
+Bodnar     Bodnar              7         10 Matematica
+Bodnar     Ciobotariu          7         10 Matematica
+Bodnar     Ciobotariu          7         10 Matematica
+Bodnar     Ciobotariu          7         10 Matematica
+Bodnar     Archip              4         10 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Archip              6         10 Matematica
+Bodnar     Archip              7         10 Matematica
+Bodnar     Bodnar              9         10 Matematica
+Bodnar     Bodnar             10         10 Matematica
+Bodnar     Bodnar             10         10 Matematica
+Bodnar     Panaite             9         10 Matematica
+Bodnar     Panaite             8         10 Matematica
+Bodnar     Panaite            10         10 Matematica
+Bodnar     Panaite            10         10 Matematica
+Bodnar     Panaite             7         10 Matematica
+Bodnar     Panaite            10         10 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Arhire              4         10 Matematica
+Bodnar     Arhire              5         10 Matematica
+Bodnar     Arhire              4         10 Matematica
+Bodnar     Arhire             10         10 Matematica
+Bodnar     Arhire              9         10 Matematica
+Bodnar     Arhire              6         10 Matematica
+Bodnar     Antonie             7         10 Matematica
+Bodnar     Antonie             4         10 Matematica
+Bodnar     Antonie            10         10 Matematica
+Bodnar     Antonie             7         10 Matematica
+Bodnar     Antonie             9         10 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Antonie             9         10 Matematica
+Bodnar     Prelipcean          4         10 Matematica
+Bodnar     Prelipcean          7         10 Matematica
+Bodnar     Prelipcean          6         10 Matematica
+Bodnar     Prelipcean          5         10 Matematica
+Bodnar     Prelipcean          6         10 Matematica
+Bodnar     Prelipcean          7         10 Matematica
+Bodnar     Popescu             8         10 Matematica
+Bodnar     Popescu             7         10 Matematica
+Bodnar     Popescu             9         10 Matematica
+Bodnar     Popescu            10         10 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Popescu             9         10 Matematica
+Bodnar     Popescu             8         10 Matematica
+Bodnar     Bodnar              9          9 OOP
+Bodnar     Bodnar              8          9 OOP
+Bodnar     Bodnar              7          9 OOP
+Bodnar     Ciobotariu          7          9 OOP
+Bodnar     Ciobotariu          7          9 OOP
+Bodnar     Ciobotariu          7          9 OOP
+Bodnar     Archip              4          9 OOP
+Bodnar     Archip              6          9 OOP
+Bodnar     Archip              7          9 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Bodnar              9          9 OOP
+Bodnar     Bodnar             10          9 OOP
+Bodnar     Bodnar             10          9 OOP
+Bodnar     Panaite             9          9 OOP
+Bodnar     Panaite             8          9 OOP
+Bodnar     Panaite            10          9 OOP
+Bodnar     Panaite            10          9 OOP
+Bodnar     Panaite             7          9 OOP
+Bodnar     Panaite            10          9 OOP
+Bodnar     Arhire              4          9 OOP
+Bodnar     Arhire              5          9 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Arhire              4          9 OOP
+Bodnar     Arhire             10          9 OOP
+Bodnar     Arhire              9          9 OOP
+Bodnar     Arhire              6          9 OOP
+Bodnar     Antonie             7          9 OOP
+Bodnar     Antonie             4          9 OOP
+Bodnar     Antonie            10          9 OOP
+Bodnar     Antonie             7          9 OOP
+Bodnar     Antonie             9          9 OOP
+Bodnar     Antonie             9          9 OOP
+Bodnar     Prelipcean          4          9 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Prelipcean          7          9 OOP
+Bodnar     Prelipcean          6          9 OOP
+Bodnar     Prelipcean          5          9 OOP
+Bodnar     Prelipcean          6          9 OOP
+Bodnar     Prelipcean          7          9 OOP
+Bodnar     Popescu             8          9 OOP
+Bodnar     Popescu             7          9 OOP
+Bodnar     Popescu             9          9 OOP
+Bodnar     Popescu            10          9 OOP
+Bodnar     Popescu             9          9 OOP
+Bodnar     Popescu             8          9 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Archip     Bodnar              9          7 Logica
+Archip     Bodnar              8          7 Logica
+Archip     Bodnar              7          7 Logica
+Archip     Ciobotariu          7          7 Logica
+Archip     Ciobotariu          7          7 Logica
+Archip     Ciobotariu          7          7 Logica
+Archip     Archip              4          7 Logica
+Archip     Archip              6          7 Logica
+Archip     Archip              7          7 Logica
+Archip     Bodnar              9          7 Logica
+Archip     Bodnar             10          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Archip     Bodnar             10          7 Logica
+Archip     Panaite             9          7 Logica
+Archip     Panaite             8          7 Logica
+Archip     Panaite            10          7 Logica
+Archip     Panaite            10          7 Logica
+Archip     Panaite             7          7 Logica
+Archip     Panaite            10          7 Logica
+Archip     Arhire              4          7 Logica
+Archip     Arhire              5          7 Logica
+Archip     Arhire              4          7 Logica
+Archip     Arhire             10          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Archip     Arhire              9          7 Logica
+Archip     Arhire              6          7 Logica
+Archip     Antonie             7          7 Logica
+Archip     Antonie             4          7 Logica
+Archip     Antonie            10          7 Logica
+Archip     Antonie             7          7 Logica
+Archip     Antonie             9          7 Logica
+Archip     Antonie             9          7 Logica
+Archip     Prelipcean          4          7 Logica
+Archip     Prelipcean          7          7 Logica
+Archip     Prelipcean          6          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Archip     Prelipcean          5          7 Logica
+Archip     Prelipcean          6          7 Logica
+Archip     Prelipcean          7          7 Logica
+Archip     Popescu             8          7 Logica
+Archip     Popescu             7          7 Logica
+Archip     Popescu             9          7 Logica
+Archip     Popescu            10          7 Logica
+Archip     Popescu             9          7 Logica
+Archip     Popescu             8          7 Logica
+Archip     Bodnar              9          6 Matematica
+Archip     Bodnar              8          6 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Archip     Bodnar              7          6 Matematica
+Archip     Ciobotariu          7          6 Matematica
+Archip     Ciobotariu          7          6 Matematica
+Archip     Ciobotariu          7          6 Matematica
+Archip     Archip              4          6 Matematica
+Archip     Archip              6          6 Matematica
+Archip     Archip              7          6 Matematica
+Archip     Bodnar              9          6 Matematica
+Archip     Bodnar             10          6 Matematica
+Archip     Bodnar             10          6 Matematica
+Archip     Panaite             9          6 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Archip     Panaite             8          6 Matematica
+Archip     Panaite            10          6 Matematica
+Archip     Panaite            10          6 Matematica
+Archip     Panaite             7          6 Matematica
+Archip     Panaite            10          6 Matematica
+Archip     Arhire              4          6 Matematica
+Archip     Arhire              5          6 Matematica
+Archip     Arhire              4          6 Matematica
+Archip     Arhire             10          6 Matematica
+Archip     Arhire              9          6 Matematica
+Archip     Arhire              6          6 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Archip     Antonie             7          6 Matematica
+Archip     Antonie             4          6 Matematica
+Archip     Antonie            10          6 Matematica
+Archip     Antonie             7          6 Matematica
+Archip     Antonie             9          6 Matematica
+Archip     Antonie             9          6 Matematica
+Archip     Prelipcean          4          6 Matematica
+Archip     Prelipcean          7          6 Matematica
+Archip     Prelipcean          6          6 Matematica
+Archip     Prelipcean          5          6 Matematica
+Archip     Prelipcean          6          6 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Archip     Prelipcean          7          6 Matematica
+Archip     Popescu             8          6 Matematica
+Archip     Popescu             7          6 Matematica
+Archip     Popescu             9          6 Matematica
+Archip     Popescu            10          6 Matematica
+Archip     Popescu             9          6 Matematica
+Archip     Popescu             8          6 Matematica
+Archip     Bodnar              9          4 OOP
+Archip     Bodnar              8          4 OOP
+Archip     Bodnar              7          4 OOP
+Archip     Ciobotariu          7          4 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Archip     Ciobotariu          7          4 OOP
+Archip     Ciobotariu          7          4 OOP
+Archip     Archip              4          4 OOP
+Archip     Archip              6          4 OOP
+Archip     Archip              7          4 OOP
+Archip     Bodnar              9          4 OOP
+Archip     Bodnar             10          4 OOP
+Archip     Bodnar             10          4 OOP
+Archip     Panaite             9          4 OOP
+Archip     Panaite             8          4 OOP
+Archip     Panaite            10          4 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Archip     Panaite            10          4 OOP
+Archip     Panaite             7          4 OOP
+Archip     Panaite            10          4 OOP
+Archip     Arhire              4          4 OOP
+Archip     Arhire              5          4 OOP
+Archip     Arhire              4          4 OOP
+Archip     Arhire             10          4 OOP
+Archip     Arhire              9          4 OOP
+Archip     Arhire              6          4 OOP
+Archip     Antonie             7          4 OOP
+Archip     Antonie             4          4 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Archip     Antonie            10          4 OOP
+Archip     Antonie             7          4 OOP
+Archip     Antonie             9          4 OOP
+Archip     Antonie             9          4 OOP
+Archip     Prelipcean          4          4 OOP
+Archip     Prelipcean          7          4 OOP
+Archip     Prelipcean          6          4 OOP
+Archip     Prelipcean          5          4 OOP
+Archip     Prelipcean          6          4 OOP
+Archip     Prelipcean          7          4 OOP
+Archip     Popescu             8          4 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Archip     Popescu             7          4 OOP
+Archip     Popescu             9          4 OOP
+Archip     Popescu            10          4 OOP
+Archip     Popescu             9          4 OOP
+Archip     Popescu             8          4 OOP
+Ciobotariu Bodnar              9          7 Logica
+Ciobotariu Bodnar              8          7 Logica
+Ciobotariu Bodnar              7          7 Logica
+Ciobotariu Ciobotariu          7          7 Logica
+Ciobotariu Ciobotariu          7          7 Logica
+Ciobotariu Ciobotariu          7          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Ciobotariu Archip              4          7 Logica
+Ciobotariu Archip              6          7 Logica
+Ciobotariu Archip              7          7 Logica
+Ciobotariu Bodnar              9          7 Logica
+Ciobotariu Bodnar             10          7 Logica
+Ciobotariu Bodnar             10          7 Logica
+Ciobotariu Panaite             9          7 Logica
+Ciobotariu Panaite             8          7 Logica
+Ciobotariu Panaite            10          7 Logica
+Ciobotariu Panaite            10          7 Logica
+Ciobotariu Panaite             7          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Ciobotariu Panaite            10          7 Logica
+Ciobotariu Arhire              4          7 Logica
+Ciobotariu Arhire              5          7 Logica
+Ciobotariu Arhire              4          7 Logica
+Ciobotariu Arhire             10          7 Logica
+Ciobotariu Arhire              9          7 Logica
+Ciobotariu Arhire              6          7 Logica
+Ciobotariu Antonie             7          7 Logica
+Ciobotariu Antonie             4          7 Logica
+Ciobotariu Antonie            10          7 Logica
+Ciobotariu Antonie             7          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Ciobotariu Antonie             9          7 Logica
+Ciobotariu Antonie             9          7 Logica
+Ciobotariu Prelipcean          4          7 Logica
+Ciobotariu Prelipcean          7          7 Logica
+Ciobotariu Prelipcean          6          7 Logica
+Ciobotariu Prelipcean          5          7 Logica
+Ciobotariu Prelipcean          6          7 Logica
+Ciobotariu Prelipcean          7          7 Logica
+Ciobotariu Popescu             8          7 Logica
+Ciobotariu Popescu             7          7 Logica
+Ciobotariu Popescu             9          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Ciobotariu Popescu            10          7 Logica
+Ciobotariu Popescu             9          7 Logica
+Ciobotariu Popescu             8          7 Logica
+Ciobotariu Bodnar              9          7 Matematica
+Ciobotariu Bodnar              8          7 Matematica
+Ciobotariu Bodnar              7          7 Matematica
+Ciobotariu Ciobotariu          7          7 Matematica
+Ciobotariu Ciobotariu          7          7 Matematica
+Ciobotariu Ciobotariu          7          7 Matematica
+Ciobotariu Archip              4          7 Matematica
+Ciobotariu Archip              6          7 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Ciobotariu Archip              7          7 Matematica
+Ciobotariu Bodnar              9          7 Matematica
+Ciobotariu Bodnar             10          7 Matematica
+Ciobotariu Bodnar             10          7 Matematica
+Ciobotariu Panaite             9          7 Matematica
+Ciobotariu Panaite             8          7 Matematica
+Ciobotariu Panaite            10          7 Matematica
+Ciobotariu Panaite            10          7 Matematica
+Ciobotariu Panaite             7          7 Matematica
+Ciobotariu Panaite            10          7 Matematica
+Ciobotariu Arhire              4          7 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Ciobotariu Arhire              5          7 Matematica
+Ciobotariu Arhire              4          7 Matematica
+Ciobotariu Arhire             10          7 Matematica
+Ciobotariu Arhire              9          7 Matematica
+Ciobotariu Arhire              6          7 Matematica
+Ciobotariu Antonie             7          7 Matematica
+Ciobotariu Antonie             4          7 Matematica
+Ciobotariu Antonie            10          7 Matematica
+Ciobotariu Antonie             7          7 Matematica
+Ciobotariu Antonie             9          7 Matematica
+Ciobotariu Antonie             9          7 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Ciobotariu Prelipcean          4          7 Matematica
+Ciobotariu Prelipcean          7          7 Matematica
+Ciobotariu Prelipcean          6          7 Matematica
+Ciobotariu Prelipcean          5          7 Matematica
+Ciobotariu Prelipcean          6          7 Matematica
+Ciobotariu Prelipcean          7          7 Matematica
+Ciobotariu Popescu             8          7 Matematica
+Ciobotariu Popescu             7          7 Matematica
+Ciobotariu Popescu             9          7 Matematica
+Ciobotariu Popescu            10          7 Matematica
+Ciobotariu Popescu             9          7 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Ciobotariu Popescu             8          7 Matematica
+Ciobotariu Bodnar              9          7 OOP
+Ciobotariu Bodnar              8          7 OOP
+Ciobotariu Bodnar              7          7 OOP
+Ciobotariu Ciobotariu          7          7 OOP
+Ciobotariu Ciobotariu          7          7 OOP
+Ciobotariu Ciobotariu          7          7 OOP
+Ciobotariu Archip              4          7 OOP
+Ciobotariu Archip              6          7 OOP
+Ciobotariu Archip              7          7 OOP
+Ciobotariu Bodnar              9          7 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Ciobotariu Bodnar             10          7 OOP
+Ciobotariu Bodnar             10          7 OOP
+Ciobotariu Panaite             9          7 OOP
+Ciobotariu Panaite             8          7 OOP
+Ciobotariu Panaite            10          7 OOP
+Ciobotariu Panaite            10          7 OOP
+Ciobotariu Panaite             7          7 OOP
+Ciobotariu Panaite            10          7 OOP
+Ciobotariu Arhire              4          7 OOP
+Ciobotariu Arhire              5          7 OOP
+Ciobotariu Arhire              4          7 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Ciobotariu Arhire             10          7 OOP
+Ciobotariu Arhire              9          7 OOP
+Ciobotariu Arhire              6          7 OOP
+Ciobotariu Antonie             7          7 OOP
+Ciobotariu Antonie             4          7 OOP
+Ciobotariu Antonie            10          7 OOP
+Ciobotariu Antonie             7          7 OOP
+Ciobotariu Antonie             9          7 OOP
+Ciobotariu Antonie             9          7 OOP
+Ciobotariu Prelipcean          4          7 OOP
+Ciobotariu Prelipcean          7          7 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Ciobotariu Prelipcean          6          7 OOP
+Ciobotariu Prelipcean          5          7 OOP
+Ciobotariu Prelipcean          6          7 OOP
+Ciobotariu Prelipcean          7          7 OOP
+Ciobotariu Popescu             8          7 OOP
+Ciobotariu Popescu             7          7 OOP
+Ciobotariu Popescu             9          7 OOP
+Ciobotariu Popescu            10          7 OOP
+Ciobotariu Popescu             9          7 OOP
+Ciobotariu Popescu             8          7 OOP
+Bodnar     Bodnar              9          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Bodnar              8          7 Logica
+Bodnar     Bodnar              7          7 Logica
+Bodnar     Ciobotariu          7          7 Logica
+Bodnar     Ciobotariu          7          7 Logica
+Bodnar     Ciobotariu          7          7 Logica
+Bodnar     Archip              4          7 Logica
+Bodnar     Archip              6          7 Logica
+Bodnar     Archip              7          7 Logica
+Bodnar     Bodnar              9          7 Logica
+Bodnar     Bodnar             10          7 Logica
+Bodnar     Bodnar             10          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Panaite             9          7 Logica
+Bodnar     Panaite             8          7 Logica
+Bodnar     Panaite            10          7 Logica
+Bodnar     Panaite            10          7 Logica
+Bodnar     Panaite             7          7 Logica
+Bodnar     Panaite            10          7 Logica
+Bodnar     Arhire              4          7 Logica
+Bodnar     Arhire              5          7 Logica
+Bodnar     Arhire              4          7 Logica
+Bodnar     Arhire             10          7 Logica
+Bodnar     Arhire              9          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Arhire              6          7 Logica
+Bodnar     Antonie             7          7 Logica
+Bodnar     Antonie             4          7 Logica
+Bodnar     Antonie            10          7 Logica
+Bodnar     Antonie             7          7 Logica
+Bodnar     Antonie             9          7 Logica
+Bodnar     Antonie             9          7 Logica
+Bodnar     Prelipcean          4          7 Logica
+Bodnar     Prelipcean          7          7 Logica
+Bodnar     Prelipcean          6          7 Logica
+Bodnar     Prelipcean          5          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Prelipcean          6          7 Logica
+Bodnar     Prelipcean          7          7 Logica
+Bodnar     Popescu             8          7 Logica
+Bodnar     Popescu             7          7 Logica
+Bodnar     Popescu             9          7 Logica
+Bodnar     Popescu            10          7 Logica
+Bodnar     Popescu             9          7 Logica
+Bodnar     Popescu             8          7 Logica
+Bodnar     Bodnar              9          8 Matematica
+Bodnar     Bodnar              8          8 Matematica
+Bodnar     Bodnar              7          8 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Ciobotariu          7          8 Matematica
+Bodnar     Ciobotariu          7          8 Matematica
+Bodnar     Ciobotariu          7          8 Matematica
+Bodnar     Archip              4          8 Matematica
+Bodnar     Archip              6          8 Matematica
+Bodnar     Archip              7          8 Matematica
+Bodnar     Bodnar              9          8 Matematica
+Bodnar     Bodnar             10          8 Matematica
+Bodnar     Bodnar             10          8 Matematica
+Bodnar     Panaite             9          8 Matematica
+Bodnar     Panaite             8          8 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Panaite            10          8 Matematica
+Bodnar     Panaite            10          8 Matematica
+Bodnar     Panaite             7          8 Matematica
+Bodnar     Panaite            10          8 Matematica
+Bodnar     Arhire              4          8 Matematica
+Bodnar     Arhire              5          8 Matematica
+Bodnar     Arhire              4          8 Matematica
+Bodnar     Arhire             10          8 Matematica
+Bodnar     Arhire              9          8 Matematica
+Bodnar     Arhire              6          8 Matematica
+Bodnar     Antonie             7          8 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Antonie             4          8 Matematica
+Bodnar     Antonie            10          8 Matematica
+Bodnar     Antonie             7          8 Matematica
+Bodnar     Antonie             9          8 Matematica
+Bodnar     Antonie             9          8 Matematica
+Bodnar     Prelipcean          4          8 Matematica
+Bodnar     Prelipcean          7          8 Matematica
+Bodnar     Prelipcean          6          8 Matematica
+Bodnar     Prelipcean          5          8 Matematica
+Bodnar     Prelipcean          6          8 Matematica
+Bodnar     Prelipcean          7          8 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Popescu             8          8 Matematica
+Bodnar     Popescu             7          8 Matematica
+Bodnar     Popescu             9          8 Matematica
+Bodnar     Popescu            10          8 Matematica
+Bodnar     Popescu             9          8 Matematica
+Bodnar     Popescu             8          8 Matematica
+Bodnar     Bodnar              9          9 OOP
+Bodnar     Bodnar              8          9 OOP
+Bodnar     Bodnar              7          9 OOP
+Bodnar     Ciobotariu          7          9 OOP
+Bodnar     Ciobotariu          7          9 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Ciobotariu          7          9 OOP
+Bodnar     Archip              4          9 OOP
+Bodnar     Archip              6          9 OOP
+Bodnar     Archip              7          9 OOP
+Bodnar     Bodnar              9          9 OOP
+Bodnar     Bodnar             10          9 OOP
+Bodnar     Bodnar             10          9 OOP
+Bodnar     Panaite             9          9 OOP
+Bodnar     Panaite             8          9 OOP
+Bodnar     Panaite            10          9 OOP
+Bodnar     Panaite            10          9 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Panaite             7          9 OOP
+Bodnar     Panaite            10          9 OOP
+Bodnar     Arhire              4          9 OOP
+Bodnar     Arhire              5          9 OOP
+Bodnar     Arhire              4          9 OOP
+Bodnar     Arhire             10          9 OOP
+Bodnar     Arhire              9          9 OOP
+Bodnar     Arhire              6          9 OOP
+Bodnar     Antonie             7          9 OOP
+Bodnar     Antonie             4          9 OOP
+Bodnar     Antonie            10          9 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Antonie             7          9 OOP
+Bodnar     Antonie             9          9 OOP
+Bodnar     Antonie             9          9 OOP
+Bodnar     Prelipcean          4          9 OOP
+Bodnar     Prelipcean          7          9 OOP
+Bodnar     Prelipcean          6          9 OOP
+Bodnar     Prelipcean          5          9 OOP
+Bodnar     Prelipcean          6          9 OOP
+Bodnar     Prelipcean          7          9 OOP
+Bodnar     Popescu             8          9 OOP
+Bodnar     Popescu             7          9 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Popescu             9          9 OOP
+Bodnar     Popescu            10          9 OOP
+Bodnar     Popescu             9          9 OOP
+Bodnar     Popescu             8          9 OOP
+
+1764 rows selected.
+
+SQL> select s1.nume, s2.nume, n1.valoare, n2.valoare, cursuri.titlu_curs from studenti s1 cross join studenti s2 join note n1 on s2.nr_matricol = n1.nr_matricol join note n2 on s1.nr_matricol=n2.nr_matricol join cursuri on n2.id_curs = cursuri.id_curs where n1.valoare < n2.valoare;
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Popescu             9         10 Logica
+Bodnar     Bodnar              9         10 Logica
+Bodnar     Popescu             9         10 Logica
+Bodnar     Bodnar              9         10 Logica
+Bodnar     Panaite             9         10 Logica
+Bodnar     Arhire              9         10 Logica
+Bodnar     Antonie             9         10 Logica
+Bodnar     Antonie             9         10 Logica
+Bodnar     Popescu             8         10 Logica
+Bodnar     Panaite             8         10 Logica
+Bodnar     Popescu             8         10 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Bodnar              8         10 Logica
+Bodnar     Ciobotariu          7         10 Logica
+Bodnar     Prelipcean          7         10 Logica
+Bodnar     Antonie             7         10 Logica
+Bodnar     Ciobotariu          7         10 Logica
+Bodnar     Ciobotariu          7         10 Logica
+Bodnar     Antonie             7         10 Logica
+Bodnar     Archip              7         10 Logica
+Bodnar     Popescu             7         10 Logica
+Bodnar     Bodnar              7         10 Logica
+Bodnar     Prelipcean          7         10 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Panaite             7         10 Logica
+Bodnar     Arhire              6         10 Logica
+Bodnar     Prelipcean          6         10 Logica
+Bodnar     Prelipcean          6         10 Logica
+Bodnar     Archip              6         10 Logica
+Bodnar     Prelipcean          5         10 Logica
+Bodnar     Arhire              5         10 Logica
+Bodnar     Arhire              4         10 Logica
+Bodnar     Prelipcean          4         10 Logica
+Bodnar     Archip              4         10 Logica
+Bodnar     Antonie             4         10 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Arhire              4         10 Logica
+Panaite    Popescu             9         10 Logica
+Panaite    Bodnar              9         10 Logica
+Panaite    Popescu             9         10 Logica
+Panaite    Bodnar              9         10 Logica
+Panaite    Panaite             9         10 Logica
+Panaite    Arhire              9         10 Logica
+Panaite    Antonie             9         10 Logica
+Panaite    Antonie             9         10 Logica
+Panaite    Popescu             8         10 Logica
+Panaite    Panaite             8         10 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Popescu             8         10 Logica
+Panaite    Bodnar              8         10 Logica
+Panaite    Ciobotariu          7         10 Logica
+Panaite    Prelipcean          7         10 Logica
+Panaite    Antonie             7         10 Logica
+Panaite    Ciobotariu          7         10 Logica
+Panaite    Ciobotariu          7         10 Logica
+Panaite    Antonie             7         10 Logica
+Panaite    Archip              7         10 Logica
+Panaite    Popescu             7         10 Logica
+Panaite    Bodnar              7         10 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Prelipcean          7         10 Logica
+Panaite    Panaite             7         10 Logica
+Panaite    Arhire              6         10 Logica
+Panaite    Prelipcean          6         10 Logica
+Panaite    Prelipcean          6         10 Logica
+Panaite    Archip              6         10 Logica
+Panaite    Prelipcean          5         10 Logica
+Panaite    Arhire              5         10 Logica
+Panaite    Arhire              4         10 Logica
+Panaite    Prelipcean          4         10 Logica
+Panaite    Archip              4         10 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Antonie             4         10 Logica
+Panaite    Arhire              4         10 Logica
+Antonie    Popescu             9         10 BD
+Antonie    Bodnar              9         10 BD
+Antonie    Popescu             9         10 BD
+Antonie    Bodnar              9         10 BD
+Antonie    Panaite             9         10 BD
+Antonie    Arhire              9         10 BD
+Antonie    Antonie             9         10 BD
+Antonie    Antonie             9         10 BD
+Antonie    Popescu             8         10 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Panaite             8         10 BD
+Antonie    Popescu             8         10 BD
+Antonie    Bodnar              8         10 BD
+Antonie    Ciobotariu          7         10 BD
+Antonie    Prelipcean          7         10 BD
+Antonie    Antonie             7         10 BD
+Antonie    Ciobotariu          7         10 BD
+Antonie    Ciobotariu          7         10 BD
+Antonie    Antonie             7         10 BD
+Antonie    Archip              7         10 BD
+Antonie    Popescu             7         10 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Bodnar              7         10 BD
+Antonie    Prelipcean          7         10 BD
+Antonie    Panaite             7         10 BD
+Antonie    Arhire              6         10 BD
+Antonie    Prelipcean          6         10 BD
+Antonie    Prelipcean          6         10 BD
+Antonie    Archip              6         10 BD
+Antonie    Prelipcean          5         10 BD
+Antonie    Arhire              5         10 BD
+Antonie    Arhire              4         10 BD
+Antonie    Prelipcean          4         10 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Archip              4         10 BD
+Antonie    Antonie             4         10 BD
+Antonie    Arhire              4         10 BD
+Popescu    Popescu             9         10 OOP
+Popescu    Bodnar              9         10 OOP
+Popescu    Popescu             9         10 OOP
+Popescu    Bodnar              9         10 OOP
+Popescu    Panaite             9         10 OOP
+Popescu    Arhire              9         10 OOP
+Popescu    Antonie             9         10 OOP
+Popescu    Antonie             9         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Popescu             8         10 OOP
+Popescu    Panaite             8         10 OOP
+Popescu    Popescu             8         10 OOP
+Popescu    Bodnar              8         10 OOP
+Popescu    Ciobotariu          7         10 OOP
+Popescu    Prelipcean          7         10 OOP
+Popescu    Antonie             7         10 OOP
+Popescu    Ciobotariu          7         10 OOP
+Popescu    Ciobotariu          7         10 OOP
+Popescu    Antonie             7         10 OOP
+Popescu    Archip              7         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Popescu             7         10 OOP
+Popescu    Bodnar              7         10 OOP
+Popescu    Prelipcean          7         10 OOP
+Popescu    Panaite             7         10 OOP
+Popescu    Arhire              6         10 OOP
+Popescu    Prelipcean          6         10 OOP
+Popescu    Prelipcean          6         10 OOP
+Popescu    Archip              6         10 OOP
+Popescu    Prelipcean          5         10 OOP
+Popescu    Arhire              5         10 OOP
+Popescu    Arhire              4         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Prelipcean          4         10 OOP
+Popescu    Archip              4         10 OOP
+Popescu    Antonie             4         10 OOP
+Popescu    Arhire              4         10 OOP
+Bodnar     Popescu             9         10 Matematica
+Bodnar     Bodnar              9         10 Matematica
+Bodnar     Popescu             9         10 Matematica
+Bodnar     Bodnar              9         10 Matematica
+Bodnar     Panaite             9         10 Matematica
+Bodnar     Arhire              9         10 Matematica
+Bodnar     Antonie             9         10 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Antonie             9         10 Matematica
+Bodnar     Popescu             8         10 Matematica
+Bodnar     Panaite             8         10 Matematica
+Bodnar     Popescu             8         10 Matematica
+Bodnar     Bodnar              8         10 Matematica
+Bodnar     Ciobotariu          7         10 Matematica
+Bodnar     Prelipcean          7         10 Matematica
+Bodnar     Antonie             7         10 Matematica
+Bodnar     Ciobotariu          7         10 Matematica
+Bodnar     Ciobotariu          7         10 Matematica
+Bodnar     Antonie             7         10 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Archip              7         10 Matematica
+Bodnar     Popescu             7         10 Matematica
+Bodnar     Bodnar              7         10 Matematica
+Bodnar     Prelipcean          7         10 Matematica
+Bodnar     Panaite             7         10 Matematica
+Bodnar     Arhire              6         10 Matematica
+Bodnar     Prelipcean          6         10 Matematica
+Bodnar     Prelipcean          6         10 Matematica
+Bodnar     Archip              6         10 Matematica
+Bodnar     Prelipcean          5         10 Matematica
+Bodnar     Arhire              5         10 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Arhire              4         10 Matematica
+Bodnar     Prelipcean          4         10 Matematica
+Bodnar     Archip              4         10 Matematica
+Bodnar     Antonie             4         10 Matematica
+Bodnar     Arhire              4         10 Matematica
+Panaite    Popescu             9         10 OOP
+Panaite    Bodnar              9         10 OOP
+Panaite    Popescu             9         10 OOP
+Panaite    Bodnar              9         10 OOP
+Panaite    Panaite             9         10 OOP
+Panaite    Arhire              9         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Antonie             9         10 OOP
+Panaite    Antonie             9         10 OOP
+Panaite    Popescu             8         10 OOP
+Panaite    Panaite             8         10 OOP
+Panaite    Popescu             8         10 OOP
+Panaite    Bodnar              8         10 OOP
+Panaite    Ciobotariu          7         10 OOP
+Panaite    Prelipcean          7         10 OOP
+Panaite    Antonie             7         10 OOP
+Panaite    Ciobotariu          7         10 OOP
+Panaite    Ciobotariu          7         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Antonie             7         10 OOP
+Panaite    Archip              7         10 OOP
+Panaite    Popescu             7         10 OOP
+Panaite    Bodnar              7         10 OOP
+Panaite    Prelipcean          7         10 OOP
+Panaite    Panaite             7         10 OOP
+Panaite    Arhire              6         10 OOP
+Panaite    Prelipcean          6         10 OOP
+Panaite    Prelipcean          6         10 OOP
+Panaite    Archip              6         10 OOP
+Panaite    Prelipcean          5         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Arhire              5         10 OOP
+Panaite    Arhire              4         10 OOP
+Panaite    Prelipcean          4         10 OOP
+Panaite    Archip              4         10 OOP
+Panaite    Antonie             4         10 OOP
+Panaite    Arhire              4         10 OOP
+Panaite    Popescu             9         10 BD
+Panaite    Bodnar              9         10 BD
+Panaite    Popescu             9         10 BD
+Panaite    Bodnar              9         10 BD
+Panaite    Panaite             9         10 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Arhire              9         10 BD
+Panaite    Antonie             9         10 BD
+Panaite    Antonie             9         10 BD
+Panaite    Popescu             8         10 BD
+Panaite    Panaite             8         10 BD
+Panaite    Popescu             8         10 BD
+Panaite    Bodnar              8         10 BD
+Panaite    Ciobotariu          7         10 BD
+Panaite    Prelipcean          7         10 BD
+Panaite    Antonie             7         10 BD
+Panaite    Ciobotariu          7         10 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Ciobotariu          7         10 BD
+Panaite    Antonie             7         10 BD
+Panaite    Archip              7         10 BD
+Panaite    Popescu             7         10 BD
+Panaite    Bodnar              7         10 BD
+Panaite    Prelipcean          7         10 BD
+Panaite    Panaite             7         10 BD
+Panaite    Arhire              6         10 BD
+Panaite    Prelipcean          6         10 BD
+Panaite    Prelipcean          6         10 BD
+Panaite    Archip              6         10 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Prelipcean          5         10 BD
+Panaite    Arhire              5         10 BD
+Panaite    Arhire              4         10 BD
+Panaite    Prelipcean          4         10 BD
+Panaite    Archip              4         10 BD
+Panaite    Antonie             4         10 BD
+Panaite    Arhire              4         10 BD
+Arhire     Popescu             9         10 OOP
+Arhire     Bodnar              9         10 OOP
+Arhire     Popescu             9         10 OOP
+Arhire     Bodnar              9         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Panaite             9         10 OOP
+Arhire     Arhire              9         10 OOP
+Arhire     Antonie             9         10 OOP
+Arhire     Antonie             9         10 OOP
+Arhire     Popescu             8         10 OOP
+Arhire     Panaite             8         10 OOP
+Arhire     Popescu             8         10 OOP
+Arhire     Bodnar              8         10 OOP
+Arhire     Ciobotariu          7         10 OOP
+Arhire     Prelipcean          7         10 OOP
+Arhire     Antonie             7         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Ciobotariu          7         10 OOP
+Arhire     Ciobotariu          7         10 OOP
+Arhire     Antonie             7         10 OOP
+Arhire     Archip              7         10 OOP
+Arhire     Popescu             7         10 OOP
+Arhire     Bodnar              7         10 OOP
+Arhire     Prelipcean          7         10 OOP
+Arhire     Panaite             7         10 OOP
+Arhire     Arhire              6         10 OOP
+Arhire     Prelipcean          6         10 OOP
+Arhire     Prelipcean          6         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Archip              6         10 OOP
+Arhire     Prelipcean          5         10 OOP
+Arhire     Arhire              5         10 OOP
+Arhire     Arhire              4         10 OOP
+Arhire     Prelipcean          4         10 OOP
+Arhire     Archip              4         10 OOP
+Arhire     Antonie             4         10 OOP
+Arhire     Arhire              4         10 OOP
+Popescu    Popescu             8          9 Matematica
+Popescu    Panaite             8          9 Matematica
+Popescu    Popescu             8          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Bodnar              8          9 Matematica
+Popescu    Ciobotariu          7          9 Matematica
+Popescu    Prelipcean          7          9 Matematica
+Popescu    Antonie             7          9 Matematica
+Popescu    Ciobotariu          7          9 Matematica
+Popescu    Ciobotariu          7          9 Matematica
+Popescu    Antonie             7          9 Matematica
+Popescu    Archip              7          9 Matematica
+Popescu    Popescu             7          9 Matematica
+Popescu    Bodnar              7          9 Matematica
+Popescu    Prelipcean          7          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Panaite             7          9 Matematica
+Popescu    Arhire              6          9 Matematica
+Popescu    Prelipcean          6          9 Matematica
+Popescu    Prelipcean          6          9 Matematica
+Popescu    Archip              6          9 Matematica
+Popescu    Prelipcean          5          9 Matematica
+Popescu    Arhire              5          9 Matematica
+Popescu    Arhire              4          9 Matematica
+Popescu    Prelipcean          4          9 Matematica
+Popescu    Archip              4          9 Matematica
+Popescu    Antonie             4          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Arhire              4          9 Matematica
+Arhire     Popescu             8          9 Matematica
+Arhire     Panaite             8          9 Matematica
+Arhire     Popescu             8          9 Matematica
+Arhire     Bodnar              8          9 Matematica
+Arhire     Ciobotariu          7          9 Matematica
+Arhire     Prelipcean          7          9 Matematica
+Arhire     Antonie             7          9 Matematica
+Arhire     Ciobotariu          7          9 Matematica
+Arhire     Ciobotariu          7          9 Matematica
+Arhire     Antonie             7          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Archip              7          9 Matematica
+Arhire     Popescu             7          9 Matematica
+Arhire     Bodnar              7          9 Matematica
+Arhire     Prelipcean          7          9 Matematica
+Arhire     Panaite             7          9 Matematica
+Arhire     Arhire              6          9 Matematica
+Arhire     Prelipcean          6          9 Matematica
+Arhire     Prelipcean          6          9 Matematica
+Arhire     Archip              6          9 Matematica
+Arhire     Prelipcean          5          9 Matematica
+Arhire     Arhire              5          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Arhire              4          9 Matematica
+Arhire     Prelipcean          4          9 Matematica
+Arhire     Archip              4          9 Matematica
+Arhire     Antonie             4          9 Matematica
+Arhire     Arhire              4          9 Matematica
+Antonie    Popescu             8          9 Matematica
+Antonie    Panaite             8          9 Matematica
+Antonie    Popescu             8          9 Matematica
+Antonie    Bodnar              8          9 Matematica
+Antonie    Ciobotariu          7          9 Matematica
+Antonie    Prelipcean          7          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Antonie             7          9 Matematica
+Antonie    Ciobotariu          7          9 Matematica
+Antonie    Ciobotariu          7          9 Matematica
+Antonie    Antonie             7          9 Matematica
+Antonie    Archip              7          9 Matematica
+Antonie    Popescu             7          9 Matematica
+Antonie    Bodnar              7          9 Matematica
+Antonie    Prelipcean          7          9 Matematica
+Antonie    Panaite             7          9 Matematica
+Antonie    Arhire              6          9 Matematica
+Antonie    Prelipcean          6          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Prelipcean          6          9 Matematica
+Antonie    Archip              6          9 Matematica
+Antonie    Prelipcean          5          9 Matematica
+Antonie    Arhire              5          9 Matematica
+Antonie    Arhire              4          9 Matematica
+Antonie    Prelipcean          4          9 Matematica
+Antonie    Archip              4          9 Matematica
+Antonie    Antonie             4          9 Matematica
+Antonie    Arhire              4          9 Matematica
+Popescu    Popescu             8          9 BD
+Popescu    Panaite             8          9 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Popescu             8          9 BD
+Popescu    Bodnar              8          9 BD
+Popescu    Ciobotariu          7          9 BD
+Popescu    Prelipcean          7          9 BD
+Popescu    Antonie             7          9 BD
+Popescu    Ciobotariu          7          9 BD
+Popescu    Ciobotariu          7          9 BD
+Popescu    Antonie             7          9 BD
+Popescu    Archip              7          9 BD
+Popescu    Popescu             7          9 BD
+Popescu    Bodnar              7          9 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Prelipcean          7          9 BD
+Popescu    Panaite             7          9 BD
+Popescu    Arhire              6          9 BD
+Popescu    Prelipcean          6          9 BD
+Popescu    Prelipcean          6          9 BD
+Popescu    Archip              6          9 BD
+Popescu    Prelipcean          5          9 BD
+Popescu    Arhire              5          9 BD
+Popescu    Arhire              4          9 BD
+Popescu    Prelipcean          4          9 BD
+Popescu    Archip              4          9 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Antonie             4          9 BD
+Popescu    Arhire              4          9 BD
+Bodnar     Popescu             8          9 OOP
+Bodnar     Panaite             8          9 OOP
+Bodnar     Popescu             8          9 OOP
+Bodnar     Bodnar              8          9 OOP
+Bodnar     Ciobotariu          7          9 OOP
+Bodnar     Prelipcean          7          9 OOP
+Bodnar     Antonie             7          9 OOP
+Bodnar     Ciobotariu          7          9 OOP
+Bodnar     Ciobotariu          7          9 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Antonie             7          9 OOP
+Bodnar     Archip              7          9 OOP
+Bodnar     Popescu             7          9 OOP
+Bodnar     Bodnar              7          9 OOP
+Bodnar     Prelipcean          7          9 OOP
+Bodnar     Panaite             7          9 OOP
+Bodnar     Arhire              6          9 OOP
+Bodnar     Prelipcean          6          9 OOP
+Bodnar     Prelipcean          6          9 OOP
+Bodnar     Archip              6          9 OOP
+Bodnar     Prelipcean          5          9 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Arhire              5          9 OOP
+Bodnar     Arhire              4          9 OOP
+Bodnar     Prelipcean          4          9 OOP
+Bodnar     Archip              4          9 OOP
+Bodnar     Antonie             4          9 OOP
+Bodnar     Arhire              4          9 OOP
+Panaite    Popescu             8          9 Tehnologii Web
+Panaite    Panaite             8          9 Tehnologii Web
+Panaite    Popescu             8          9 Tehnologii Web
+Panaite    Bodnar              8          9 Tehnologii Web
+Panaite    Ciobotariu          7          9 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Prelipcean          7          9 Tehnologii Web
+Panaite    Antonie             7          9 Tehnologii Web
+Panaite    Ciobotariu          7          9 Tehnologii Web
+Panaite    Ciobotariu          7          9 Tehnologii Web
+Panaite    Antonie             7          9 Tehnologii Web
+Panaite    Archip              7          9 Tehnologii Web
+Panaite    Popescu             7          9 Tehnologii Web
+Panaite    Bodnar              7          9 Tehnologii Web
+Panaite    Prelipcean          7          9 Tehnologii Web
+Panaite    Panaite             7          9 Tehnologii Web
+Panaite    Arhire              6          9 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Prelipcean          6          9 Tehnologii Web
+Panaite    Prelipcean          6          9 Tehnologii Web
+Panaite    Archip              6          9 Tehnologii Web
+Panaite    Prelipcean          5          9 Tehnologii Web
+Panaite    Arhire              5          9 Tehnologii Web
+Panaite    Arhire              4          9 Tehnologii Web
+Panaite    Prelipcean          4          9 Tehnologii Web
+Panaite    Archip              4          9 Tehnologii Web
+Panaite    Antonie             4          9 Tehnologii Web
+Panaite    Arhire              4          9 Tehnologii Web
+Antonie    Popescu             8          9 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Panaite             8          9 Logica
+Antonie    Popescu             8          9 Logica
+Antonie    Bodnar              8          9 Logica
+Antonie    Ciobotariu          7          9 Logica
+Antonie    Prelipcean          7          9 Logica
+Antonie    Antonie             7          9 Logica
+Antonie    Ciobotariu          7          9 Logica
+Antonie    Ciobotariu          7          9 Logica
+Antonie    Antonie             7          9 Logica
+Antonie    Archip              7          9 Logica
+Antonie    Popescu             7          9 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Bodnar              7          9 Logica
+Antonie    Prelipcean          7          9 Logica
+Antonie    Panaite             7          9 Logica
+Antonie    Arhire              6          9 Logica
+Antonie    Prelipcean          6          9 Logica
+Antonie    Prelipcean          6          9 Logica
+Antonie    Archip              6          9 Logica
+Antonie    Prelipcean          5          9 Logica
+Antonie    Arhire              5          9 Logica
+Antonie    Arhire              4          9 Logica
+Antonie    Prelipcean          4          9 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Archip              4          9 Logica
+Antonie    Antonie             4          9 Logica
+Antonie    Arhire              4          9 Logica
+Bodnar     Popescu             8          9 OOP
+Bodnar     Panaite             8          9 OOP
+Bodnar     Popescu             8          9 OOP
+Bodnar     Bodnar              8          9 OOP
+Bodnar     Ciobotariu          7          9 OOP
+Bodnar     Prelipcean          7          9 OOP
+Bodnar     Antonie             7          9 OOP
+Bodnar     Ciobotariu          7          9 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Ciobotariu          7          9 OOP
+Bodnar     Antonie             7          9 OOP
+Bodnar     Archip              7          9 OOP
+Bodnar     Popescu             7          9 OOP
+Bodnar     Bodnar              7          9 OOP
+Bodnar     Prelipcean          7          9 OOP
+Bodnar     Panaite             7          9 OOP
+Bodnar     Arhire              6          9 OOP
+Bodnar     Prelipcean          6          9 OOP
+Bodnar     Prelipcean          6          9 OOP
+Bodnar     Archip              6          9 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Prelipcean          5          9 OOP
+Bodnar     Arhire              5          9 OOP
+Bodnar     Arhire              4          9 OOP
+Bodnar     Prelipcean          4          9 OOP
+Bodnar     Archip              4          9 OOP
+Bodnar     Antonie             4          9 OOP
+Bodnar     Arhire              4          9 OOP
+Panaite    Ciobotariu          7          8 Java
+Panaite    Prelipcean          7          8 Java
+Panaite    Antonie             7          8 Java
+Panaite    Ciobotariu          7          8 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Ciobotariu          7          8 Java
+Panaite    Antonie             7          8 Java
+Panaite    Archip              7          8 Java
+Panaite    Popescu             7          8 Java
+Panaite    Bodnar              7          8 Java
+Panaite    Prelipcean          7          8 Java
+Panaite    Panaite             7          8 Java
+Panaite    Arhire              6          8 Java
+Panaite    Prelipcean          6          8 Java
+Panaite    Prelipcean          6          8 Java
+Panaite    Archip              6          8 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Prelipcean          5          8 Java
+Panaite    Arhire              5          8 Java
+Panaite    Arhire              4          8 Java
+Panaite    Prelipcean          4          8 Java
+Panaite    Archip              4          8 Java
+Panaite    Antonie             4          8 Java
+Panaite    Arhire              4          8 Java
+Popescu    Ciobotariu          7          8 Logica
+Popescu    Prelipcean          7          8 Logica
+Popescu    Antonie             7          8 Logica
+Popescu    Ciobotariu          7          8 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Ciobotariu          7          8 Logica
+Popescu    Antonie             7          8 Logica
+Popescu    Archip              7          8 Logica
+Popescu    Popescu             7          8 Logica
+Popescu    Bodnar              7          8 Logica
+Popescu    Prelipcean          7          8 Logica
+Popescu    Panaite             7          8 Logica
+Popescu    Arhire              6          8 Logica
+Popescu    Prelipcean          6          8 Logica
+Popescu    Prelipcean          6          8 Logica
+Popescu    Archip              6          8 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Prelipcean          5          8 Logica
+Popescu    Arhire              5          8 Logica
+Popescu    Arhire              4          8 Logica
+Popescu    Prelipcean          4          8 Logica
+Popescu    Archip              4          8 Logica
+Popescu    Antonie             4          8 Logica
+Popescu    Arhire              4          8 Logica
+Popescu    Ciobotariu          7          8 Tehnologii Web
+Popescu    Prelipcean          7          8 Tehnologii Web
+Popescu    Antonie             7          8 Tehnologii Web
+Popescu    Ciobotariu          7          8 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Ciobotariu          7          8 Tehnologii Web
+Popescu    Antonie             7          8 Tehnologii Web
+Popescu    Archip              7          8 Tehnologii Web
+Popescu    Popescu             7          8 Tehnologii Web
+Popescu    Bodnar              7          8 Tehnologii Web
+Popescu    Prelipcean          7          8 Tehnologii Web
+Popescu    Panaite             7          8 Tehnologii Web
+Popescu    Arhire              6          8 Tehnologii Web
+Popescu    Prelipcean          6          8 Tehnologii Web
+Popescu    Prelipcean          6          8 Tehnologii Web
+Popescu    Archip              6          8 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Prelipcean          5          8 Tehnologii Web
+Popescu    Arhire              5          8 Tehnologii Web
+Popescu    Arhire              4          8 Tehnologii Web
+Popescu    Prelipcean          4          8 Tehnologii Web
+Popescu    Archip              4          8 Tehnologii Web
+Popescu    Antonie             4          8 Tehnologii Web
+Popescu    Arhire              4          8 Tehnologii Web
+Bodnar     Ciobotariu          7          8 Matematica
+Bodnar     Prelipcean          7          8 Matematica
+Bodnar     Antonie             7          8 Matematica
+Bodnar     Ciobotariu          7          8 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Ciobotariu          7          8 Matematica
+Bodnar     Antonie             7          8 Matematica
+Bodnar     Archip              7          8 Matematica
+Bodnar     Popescu             7          8 Matematica
+Bodnar     Bodnar              7          8 Matematica
+Bodnar     Prelipcean          7          8 Matematica
+Bodnar     Panaite             7          8 Matematica
+Bodnar     Arhire              6          8 Matematica
+Bodnar     Prelipcean          6          8 Matematica
+Bodnar     Prelipcean          6          8 Matematica
+Bodnar     Archip              6          8 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Prelipcean          5          8 Matematica
+Bodnar     Arhire              5          8 Matematica
+Bodnar     Arhire              4          8 Matematica
+Bodnar     Prelipcean          4          8 Matematica
+Bodnar     Archip              4          8 Matematica
+Bodnar     Antonie             4          8 Matematica
+Bodnar     Arhire              4          8 Matematica
+Antonie    Arhire              6          7 OOP
+Antonie    Prelipcean          6          7 OOP
+Antonie    Prelipcean          6          7 OOP
+Antonie    Archip              6          7 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Prelipcean          5          7 OOP
+Antonie    Arhire              5          7 OOP
+Antonie    Arhire              4          7 OOP
+Antonie    Prelipcean          4          7 OOP
+Antonie    Archip              4          7 OOP
+Antonie    Antonie             4          7 OOP
+Antonie    Arhire              4          7 OOP
+Antonie    Arhire              6          7 Tehnologii Web
+Antonie    Prelipcean          6          7 Tehnologii Web
+Antonie    Prelipcean          6          7 Tehnologii Web
+Antonie    Archip              6          7 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Prelipcean          5          7 Tehnologii Web
+Antonie    Arhire              5          7 Tehnologii Web
+Antonie    Arhire              4          7 Tehnologii Web
+Antonie    Prelipcean          4          7 Tehnologii Web
+Antonie    Archip              4          7 Tehnologii Web
+Antonie    Antonie             4          7 Tehnologii Web
+Antonie    Arhire              4          7 Tehnologii Web
+Prelipcean Arhire              6          7 Logica
+Prelipcean Prelipcean          6          7 Logica
+Prelipcean Prelipcean          6          7 Logica
+Prelipcean Archip              6          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Prelipcean          5          7 Logica
+Prelipcean Arhire              5          7 Logica
+Prelipcean Arhire              4          7 Logica
+Prelipcean Prelipcean          4          7 Logica
+Prelipcean Archip              4          7 Logica
+Prelipcean Antonie             4          7 Logica
+Prelipcean Arhire              4          7 Logica
+Prelipcean Arhire              6          7 Java
+Prelipcean Prelipcean          6          7 Java
+Prelipcean Prelipcean          6          7 Java
+Prelipcean Archip              6          7 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Prelipcean          5          7 Java
+Prelipcean Arhire              5          7 Java
+Prelipcean Arhire              4          7 Java
+Prelipcean Prelipcean          4          7 Java
+Prelipcean Archip              4          7 Java
+Prelipcean Antonie             4          7 Java
+Prelipcean Arhire              4          7 Java
+Bodnar     Arhire              6          7 Logica
+Bodnar     Prelipcean          6          7 Logica
+Bodnar     Prelipcean          6          7 Logica
+Bodnar     Archip              6          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Prelipcean          5          7 Logica
+Bodnar     Arhire              5          7 Logica
+Bodnar     Arhire              4          7 Logica
+Bodnar     Prelipcean          4          7 Logica
+Bodnar     Archip              4          7 Logica
+Bodnar     Antonie             4          7 Logica
+Bodnar     Arhire              4          7 Logica
+Popescu    Arhire              6          7 Java
+Popescu    Prelipcean          6          7 Java
+Popescu    Prelipcean          6          7 Java
+Popescu    Archip              6          7 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Prelipcean          5          7 Java
+Popescu    Arhire              5          7 Java
+Popescu    Arhire              4          7 Java
+Popescu    Prelipcean          4          7 Java
+Popescu    Archip              4          7 Java
+Popescu    Antonie             4          7 Java
+Popescu    Arhire              4          7 Java
+Ciobotariu Arhire              6          7 Logica
+Ciobotariu Prelipcean          6          7 Logica
+Ciobotariu Prelipcean          6          7 Logica
+Ciobotariu Archip              6          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Ciobotariu Prelipcean          5          7 Logica
+Ciobotariu Arhire              5          7 Logica
+Ciobotariu Arhire              4          7 Logica
+Ciobotariu Prelipcean          4          7 Logica
+Ciobotariu Archip              4          7 Logica
+Ciobotariu Antonie             4          7 Logica
+Ciobotariu Arhire              4          7 Logica
+Ciobotariu Arhire              6          7 Matematica
+Ciobotariu Prelipcean          6          7 Matematica
+Ciobotariu Prelipcean          6          7 Matematica
+Ciobotariu Archip              6          7 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Ciobotariu Prelipcean          5          7 Matematica
+Ciobotariu Arhire              5          7 Matematica
+Ciobotariu Arhire              4          7 Matematica
+Ciobotariu Prelipcean          4          7 Matematica
+Ciobotariu Archip              4          7 Matematica
+Ciobotariu Antonie             4          7 Matematica
+Ciobotariu Arhire              4          7 Matematica
+Ciobotariu Arhire              6          7 OOP
+Ciobotariu Prelipcean          6          7 OOP
+Ciobotariu Prelipcean          6          7 OOP
+Ciobotariu Archip              6          7 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Ciobotariu Prelipcean          5          7 OOP
+Ciobotariu Arhire              5          7 OOP
+Ciobotariu Arhire              4          7 OOP
+Ciobotariu Prelipcean          4          7 OOP
+Ciobotariu Archip              4          7 OOP
+Ciobotariu Antonie             4          7 OOP
+Ciobotariu Arhire              4          7 OOP
+Archip     Arhire              6          7 Logica
+Archip     Prelipcean          6          7 Logica
+Archip     Prelipcean          6          7 Logica
+Archip     Archip              6          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Archip     Prelipcean          5          7 Logica
+Archip     Arhire              5          7 Logica
+Archip     Arhire              4          7 Logica
+Archip     Prelipcean          4          7 Logica
+Archip     Archip              4          7 Logica
+Archip     Antonie             4          7 Logica
+Archip     Arhire              4          7 Logica
+Panaite    Arhire              6          7 Matematica
+Panaite    Prelipcean          6          7 Matematica
+Panaite    Prelipcean          6          7 Matematica
+Panaite    Archip              6          7 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Prelipcean          5          7 Matematica
+Panaite    Arhire              5          7 Matematica
+Panaite    Arhire              4          7 Matematica
+Panaite    Prelipcean          4          7 Matematica
+Panaite    Archip              4          7 Matematica
+Panaite    Antonie             4          7 Matematica
+Panaite    Arhire              4          7 Matematica
+Archip     Prelipcean          5          6 Matematica
+Archip     Arhire              5          6 Matematica
+Archip     Arhire              4          6 Matematica
+Archip     Prelipcean          4          6 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Archip     Archip              4          6 Matematica
+Archip     Antonie             4          6 Matematica
+Archip     Arhire              4          6 Matematica
+Prelipcean Prelipcean          5          6 Matematica
+Prelipcean Arhire              5          6 Matematica
+Prelipcean Arhire              4          6 Matematica
+Prelipcean Prelipcean          4          6 Matematica
+Prelipcean Archip              4          6 Matematica
+Prelipcean Antonie             4          6 Matematica
+Prelipcean Arhire              4          6 Matematica
+Prelipcean Prelipcean          5          6 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Arhire              5          6 BD
+Prelipcean Arhire              4          6 BD
+Prelipcean Prelipcean          4          6 BD
+Prelipcean Archip              4          6 BD
+Prelipcean Antonie             4          6 BD
+Prelipcean Arhire              4          6 BD
+Arhire     Prelipcean          5          6 Logica
+Arhire     Arhire              5          6 Logica
+Arhire     Arhire              4          6 Logica
+Arhire     Prelipcean          4          6 Logica
+Arhire     Archip              4          6 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Antonie             4          6 Logica
+Arhire     Arhire              4          6 Logica
+Arhire     Arhire              4          5 Java
+Arhire     Prelipcean          4          5 Java
+Arhire     Archip              4          5 Java
+Arhire     Antonie             4          5 Java
+Arhire     Arhire              4          5 Java
+Prelipcean Arhire              4          5 OOP
+Prelipcean Prelipcean          4          5 OOP
+Prelipcean Archip              4          5 OOP
+Prelipcean Antonie             4          5 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Arhire              4          5 OOP
+
+727 rows selected.
+
+SQL> select distinct s1.nume, s2.nume, n1.valoare, n2.valoare, cursuri.titlu_curs from studenti s1 cross join studenti s2 join note n1 on s2.nr_matricol = n1.nr_matricol join note n2 on s1.nr_matricol=n2.nr_matricol join cursuri on n2.id_curs = cursuri.id_curs where n1.valoare < n2.valoare;
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Arhire              9         10 Logica
+Bodnar     Antonie             9         10 Logica
+Bodnar     Bodnar              8         10 Logica
+Bodnar     Archip              7         10 Logica
+Bodnar     Prelipcean          6         10 Logica
+Panaite    Panaite             7         10 Logica
+Antonie    Popescu             7         10 BD
+Antonie    Prelipcean          4         10 BD
+Popescu    Prelipcean          7         10 OOP
+Bodnar     Panaite             8         10 Matematica
+Bodnar     Prelipcean          7         10 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Prelipcean          5         10 Matematica
+Panaite    Antonie             7         10 OOP
+Panaite    Arhire              5         10 BD
+Arhire     Arhire              6         10 OOP
+Arhire     Prelipcean          5         10 OOP
+Popescu    Popescu             7          9 Matematica
+Popescu    Bodnar              7          9 Matematica
+Popescu    Prelipcean          5          9 Matematica
+Popescu    Prelipcean          4          9 Matematica
+Arhire     Ciobotariu          7          9 Matematica
+Arhire     Prelipcean          7          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Prelipcean          4          9 Matematica
+Arhire     Archip              4          9 Matematica
+Antonie    Bodnar              8          9 Matematica
+Antonie    Arhire              4          9 Matematica
+Popescu    Prelipcean          6          9 BD
+Bodnar     Popescu             8          9 OOP
+Bodnar     Archip              6          9 OOP
+Panaite    Prelipcean          7          9 Tehnologii Web
+Antonie    Prelipcean          4          9 Logica
+Panaite    Ciobotariu          7          8 Java
+Panaite    Prelipcean          7          8 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Archip              7          8 Logica
+Popescu    Arhire              4          8 Logica
+Popescu    Archip              7          8 Tehnologii Web
+Bodnar     Arhire              4          8 Matematica
+Prelipcean Prelipcean          4          7 Logica
+Prelipcean Antonie             4          7 Java
+Bodnar     Arhire              6          7 Logica
+Bodnar     Prelipcean          6          7 Logica
+Popescu    Archip              6          7 Java
+Popescu    Arhire              4          7 Java
+Ciobotariu Prelipcean          4          7 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Ciobotariu Archip              6          7 OOP
+Ciobotariu Prelipcean          5          7 OOP
+Archip     Arhire              5          7 Logica
+Archip     Antonie             4          7 Logica
+Panaite    Arhire              5          7 Matematica
+Arhire     Arhire              5          6 Logica
+Arhire     Prelipcean          4          6 Logica
+Bodnar     Bodnar              9         10 Logica
+Bodnar     Ciobotariu          7         10 Logica
+Bodnar     Bodnar              7         10 Logica
+Bodnar     Prelipcean          5         10 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Popescu             9         10 Logica
+Panaite    Panaite             9         10 Logica
+Panaite    Prelipcean          5         10 Logica
+Panaite    Archip              4         10 Logica
+Antonie    Panaite             8         10 BD
+Antonie    Prelipcean          7         10 BD
+Antonie    Panaite             7         10 BD
+Antonie    Archip              6         10 BD
+Popescu    Popescu             9         10 OOP
+Popescu    Antonie             9         10 OOP
+Popescu    Bodnar              8         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Popescu             7         10 OOP
+Popescu    Prelipcean          4         10 OOP
+Bodnar     Ciobotariu          7         10 Matematica
+Bodnar     Prelipcean          4         10 Matematica
+Bodnar     Archip              4         10 Matematica
+Panaite    Panaite             9         10 OOP
+Panaite    Popescu             7         10 OOP
+Panaite    Bodnar              7         10 OOP
+Panaite    Prelipcean          4         10 OOP
+Panaite    Popescu             9         10 BD
+Panaite    Archip              7         10 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Popescu             7         10 BD
+Panaite    Arhire              4         10 BD
+Panaite    Archip              4         10 BD
+Arhire     Bodnar              9         10 OOP
+Arhire     Panaite             9         10 OOP
+Arhire     Antonie             4         10 OOP
+Popescu    Panaite             8          9 Matematica
+Popescu    Prelipcean          7          9 Matematica
+Arhire     Antonie             7          9 Matematica
+Arhire     Panaite             7          9 Matematica
+Arhire     Arhire              6          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Popescu             8          9 Matematica
+Popescu    Panaite             8          9 BD
+Popescu    Antonie             7          9 BD
+Popescu    Archip              7          9 BD
+Popescu    Bodnar              7          9 BD
+Bodnar     Prelipcean          6          9 OOP
+Panaite    Popescu             8          9 Tehnologii Web
+Panaite    Popescu             7          9 Tehnologii Web
+Panaite    Prelipcean          5          9 Tehnologii Web
+Antonie    Bodnar              7          9 Logica
+Antonie    Antonie             4          9 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Antonie             7          8 Java
+Panaite    Arhire              6          8 Java
+Panaite    Arhire              5          8 Java
+Popescu    Prelipcean          7          8 Logica
+Popescu    Antonie             7          8 Logica
+Popescu    Popescu             7          8 Logica
+Popescu    Archip              4          8 Logica
+Popescu    Popescu             7          8 Tehnologii Web
+Popescu    Panaite             7          8 Tehnologii Web
+Popescu    Prelipcean          5          8 Tehnologii Web
+Bodnar     Ciobotariu          7          8 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Prelipcean          5          7 Tehnologii Web
+Prelipcean Arhire              6          7 Logica
+Prelipcean Prelipcean          6          7 Logica
+Bodnar     Archip              6          7 Logica
+Bodnar     Archip              4          7 Logica
+Ciobotariu Archip              4          7 Logica
+Ciobotariu Archip              6          7 Matematica
+Ciobotariu Prelipcean          4          7 OOP
+Panaite    Arhire              4          7 Matematica
+Panaite    Prelipcean          4          7 Matematica
+Panaite    Archip              4          7 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Arhire              5          6 Matematica
+Arhire     Antonie             4          6 Logica
+Arhire     Arhire              4          5 Java
+Prelipcean Arhire              4          5 OOP
+Prelipcean Antonie             4          5 OOP
+Bodnar     Popescu             9         10 Logica
+Bodnar     Archip              4         10 Logica
+Panaite    Arhire              9         10 Logica
+Panaite    Prelipcean          7         10 Logica
+Panaite    Arhire              6         10 Logica
+Panaite    Prelipcean          6         10 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Antonie             4         10 BD
+Popescu    Popescu             8         10 OOP
+Popescu    Archip              6         10 OOP
+Popescu    Prelipcean          5         10 OOP
+Popescu    Antonie             4         10 OOP
+Bodnar     Bodnar              9         10 Matematica
+Bodnar     Antonie             9         10 Matematica
+Bodnar     Bodnar              7         10 Matematica
+Bodnar     Archip              6         10 Matematica
+Bodnar     Arhire              5         10 Matematica
+Bodnar     Arhire              4         10 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Popescu             9         10 OOP
+Panaite    Bodnar              9         10 OOP
+Panaite    Archip              6         10 OOP
+Panaite    Arhire              4         10 OOP
+Panaite    Bodnar              9         10 BD
+Panaite    Bodnar              7         10 BD
+Panaite    Prelipcean          6         10 BD
+Panaite    Prelipcean          4         10 BD
+Arhire     Antonie             9         10 OOP
+Arhire     Prelipcean          7         10 OOP
+Arhire     Archip              7         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Arhire              5         10 OOP
+Popescu    Panaite             7          9 Matematica
+Arhire     Antonie             4          9 Matematica
+Antonie    Prelipcean          6          9 Matematica
+Antonie    Prelipcean          4          9 Matematica
+Antonie    Archip              4          9 Matematica
+Popescu    Panaite             7          9 BD
+Popescu    Arhire              4          9 BD
+Bodnar     Panaite             8          9 OOP
+Bodnar     Prelipcean          5          9 OOP
+Bodnar     Prelipcean          4          9 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Ciobotariu          7          9 Tehnologii Web
+Panaite    Bodnar              7          9 Tehnologii Web
+Antonie    Panaite             8          9 Logica
+Antonie    Bodnar              8          9 Logica
+Panaite    Archip              6          8 Java
+Popescu    Prelipcean          6          8 Logica
+Popescu    Ciobotariu          7          8 Tehnologii Web
+Popescu    Antonie             7          8 Tehnologii Web
+Popescu    Archip              4          8 Tehnologii Web
+Bodnar     Prelipcean          7          8 Matematica
+Bodnar     Archip              6          8 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Antonie             4          8 Matematica
+Antonie    Antonie             4          7 OOP
+Antonie    Arhire              5          7 Tehnologii Web
+Prelipcean Antonie             4          7 Logica
+Prelipcean Prelipcean          6          7 Java
+Prelipcean Archip              6          7 Java
+Prelipcean Arhire              5          7 Java
+Popescu    Arhire              6          7 Java
+Panaite    Prelipcean          5          7 Matematica
+Prelipcean Prelipcean          4          6 Matematica
+Prelipcean Archip              4          6 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Arhire              5          6 BD
+Bodnar     Panaite             8         10 Logica
+Bodnar     Arhire              5         10 Logica
+Panaite    Bodnar              8         10 Logica
+Panaite    Archip              7         10 Logica
+Antonie    Bodnar              9         10 BD
+Antonie    Bodnar              8         10 BD
+Popescu    Bodnar              9         10 OOP
+Popescu    Panaite             7         10 OOP
+Popescu    Archip              4         10 OOP
+Bodnar     Popescu             8         10 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Archip              7         10 Matematica
+Bodnar     Arhire              6         10 Matematica
+Panaite    Prelipcean          7         10 OOP
+Panaite    Popescu             8         10 BD
+Panaite    Prelipcean          7         10 BD
+Panaite    Panaite             7         10 BD
+Arhire     Popescu             9         10 OOP
+Arhire     Arhire              9         10 OOP
+Arhire     Ciobotariu          7         10 OOP
+Arhire     Bodnar              7         10 OOP
+Arhire     Panaite             7         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Prelipcean          6         10 OOP
+Antonie    Ciobotariu          7          9 Matematica
+Antonie    Bodnar              7          9 Matematica
+Antonie    Arhire              5          9 Matematica
+Popescu    Popescu             7          9 BD
+Popescu    Arhire              5          9 BD
+Popescu    Prelipcean          4          9 BD
+Bodnar     Ciobotariu          7          9 OOP
+Bodnar     Prelipcean          7          9 OOP
+Bodnar     Arhire              4          9 OOP
+Panaite    Antonie             7          9 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Panaite             7          9 Tehnologii Web
+Antonie    Popescu             8          9 Logica
+Antonie    Popescu             7          9 Logica
+Antonie    Arhire              6          9 Logica
+Panaite    Prelipcean          5          8 Java
+Panaite    Prelipcean          4          8 Java
+Panaite    Antonie             4          8 Java
+Popescu    Ciobotariu          7          8 Logica
+Popescu    Bodnar              7          8 Logica
+Popescu    Panaite             7          8 Logica
+Popescu    Prelipcean          6          8 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Archip              6          8 Tehnologii Web
+Popescu    Arhire              5          8 Tehnologii Web
+Popescu    Antonie             4          8 Tehnologii Web
+Bodnar     Antonie             7          8 Matematica
+Bodnar     Prelipcean          4          8 Matematica
+Antonie    Prelipcean          5          7 OOP
+Antonie    Arhire              6          7 Tehnologii Web
+Bodnar     Arhire              4          7 Logica
+Popescu    Archip              4          7 Java
+Ciobotariu Arhire              6          7 Logica
+Ciobotariu Arhire              5          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Ciobotariu Arhire              4          7 Logica
+Ciobotariu Antonie             4          7 Logica
+Ciobotariu Arhire              6          7 Matematica
+Ciobotariu Arhire              5          7 OOP
+Ciobotariu Archip              4          7 OOP
+Archip     Archip              6          7 Logica
+Archip     Prelipcean          5          7 Logica
+Archip     Archip              4          7 Logica
+Archip     Prelipcean          5          6 Matematica
+Archip     Arhire              4          6 Matematica
+Prelipcean Antonie             4          6 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Prelipcean          5          6 Logica
+Arhire     Arhire              4          6 Logica
+Arhire     Archip              4          6 Logica
+Prelipcean Prelipcean          4          5 OOP
+Bodnar     Prelipcean          7         10 Logica
+Bodnar     Antonie             4         10 Logica
+Panaite    Bodnar              9         10 Logica
+Panaite    Arhire              4         10 Logica
+Panaite    Prelipcean          4         10 Logica
+Antonie    Archip              7         10 BD
+Popescu    Panaite             9         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Panaite             8         10 OOP
+Popescu    Archip              7         10 OOP
+Bodnar     Popescu             7         10 Matematica
+Panaite    Arhire              9         10 OOP
+Panaite    Arhire              9         10 BD
+Panaite    Arhire              6         10 BD
+Arhire     Bodnar              8         10 OOP
+Arhire     Antonie             7         10 OOP
+Arhire     Archip              6         10 OOP
+Popescu    Archip              6          9 Matematica
+Arhire     Bodnar              8          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Archip              6          9 Matematica
+Arhire     Prelipcean          5          9 Matematica
+Antonie    Popescu             7          9 Matematica
+Antonie    Archip              6          9 Matematica
+Antonie    Prelipcean          5          9 Matematica
+Popescu    Prelipcean          7          9 BD
+Popescu    Archip              6          9 BD
+Bodnar     Archip              7          9 OOP
+Bodnar     Arhire              6          9 OOP
+Bodnar     Arhire              5          9 OOP
+Bodnar     Archip              4          9 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Antonie             4          9 OOP
+Panaite    Panaite             8          9 Tehnologii Web
+Panaite    Archip              7          9 Tehnologii Web
+Panaite    Arhire              5          9 Tehnologii Web
+Panaite    Arhire              4          9 Tehnologii Web
+Panaite    Antonie             4          9 Tehnologii Web
+Antonie    Prelipcean          7          9 Logica
+Antonie    Antonie             7          9 Logica
+Antonie    Panaite             7          9 Logica
+Antonie    Archip              6          9 Logica
+Antonie    Arhire              5          9 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Arhire              4          9 Logica
+Panaite    Archip              7          8 Java
+Panaite    Popescu             7          8 Java
+Panaite    Panaite             7          8 Java
+Popescu    Arhire              5          8 Logica
+Popescu    Arhire              6          8 Tehnologii Web
+Popescu    Arhire              4          8 Tehnologii Web
+Bodnar     Prelipcean          5          8 Matematica
+Antonie    Arhire              4          7 OOP
+Antonie    Prelipcean          4          7 OOP
+Prelipcean Prelipcean          5          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Arhire              5          7 Logica
+Prelipcean Prelipcean          5          7 Java
+Prelipcean Arhire              4          7 Java
+Prelipcean Archip              4          7 Java
+Bodnar     Antonie             4          7 Logica
+Ciobotariu Archip              6          7 Logica
+Ciobotariu Archip              4          7 Matematica
+Archip     Prelipcean          6          7 Logica
+Archip     Arhire              4          7 Logica
+Panaite    Prelipcean          6          7 Matematica
+Panaite    Antonie             4          7 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Archip     Arhire              5          6 Matematica
+Archip     Archip              4          6 Matematica
+Prelipcean Antonie             4          6 Matematica
+Prelipcean Archip              4          5 OOP
+Bodnar     Prelipcean          4         10 Logica
+Panaite    Popescu             8         10 Logica
+Panaite    Panaite             8         10 Logica
+Panaite    Popescu             7         10 Logica
+Antonie    Panaite             9         10 BD
+Antonie    Popescu             8         10 BD
+Antonie    Arhire              6         10 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Prelipcean          5         10 BD
+Popescu    Arhire              9         10 OOP
+Popescu    Antonie             7         10 OOP
+Popescu    Arhire              6         10 OOP
+Popescu    Prelipcean          6         10 OOP
+Bodnar     Bodnar              8         10 Matematica
+Bodnar     Panaite             7         10 Matematica
+Panaite    Popescu             8         10 OOP
+Panaite    Panaite             8         10 OOP
+Panaite    Panaite             7         10 OOP
+Panaite    Arhire              6         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Prelipcean          6         10 OOP
+Panaite    Panaite             8         10 BD
+Panaite    Ciobotariu          7         10 BD
+Panaite    Archip              6         10 BD
+Panaite    Antonie             4         10 BD
+Arhire     Popescu             7         10 OOP
+Popescu    Popescu             8          9 Matematica
+Popescu    Archip              7          9 Matematica
+Arhire     Popescu             8          9 Matematica
+Arhire     Prelipcean          6          9 Matematica
+Arhire     Arhire              4          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Antonie             7          9 Matematica
+Antonie    Antonie             4          9 Matematica
+Popescu    Ciobotariu          7          9 BD
+Popescu    Arhire              6          9 BD
+Popescu    Archip              4          9 BD
+Bodnar     Antonie             7          9 OOP
+Bodnar     Bodnar              7          9 OOP
+Panaite    Bodnar              8          9 Tehnologii Web
+Panaite    Prelipcean          6          9 Tehnologii Web
+Antonie    Ciobotariu          7          9 Logica
+Antonie    Archip              4          9 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Bodnar              7          8 Java
+Panaite    Prelipcean          6          8 Java
+Popescu    Arhire              6          8 Logica
+Popescu    Prelipcean          4          8 Logica
+Popescu    Prelipcean          4          8 Tehnologii Web
+Bodnar     Archip              7          8 Matematica
+Bodnar     Bodnar              7          8 Matematica
+Bodnar     Arhire              6          8 Matematica
+Bodnar     Arhire              5          8 Matematica
+Antonie    Arhire              6          7 OOP
+Antonie    Archip              6          7 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Arhire              5          7 OOP
+Antonie    Prelipcean          4          7 Tehnologii Web
+Prelipcean Archip              6          7 Logica
+Prelipcean Archip              4          7 Logica
+Bodnar     Prelipcean          5          7 Logica
+Popescu    Prelipcean          6          7 Java
+Popescu    Prelipcean          5          7 Java
+Popescu    Prelipcean          4          7 Java
+Popescu    Antonie             4          7 Java
+Ciobotariu Prelipcean          6          7 Logica
+Ciobotariu Prelipcean          4          7 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Ciobotariu Prelipcean          6          7 Matematica
+Ciobotariu Arhire              5          7 Matematica
+Ciobotariu Arhire              6          7 OOP
+Ciobotariu Prelipcean          6          7 OOP
+Ciobotariu Arhire              4          7 OOP
+Ciobotariu Antonie             4          7 OOP
+Prelipcean Prelipcean          5          6 Matematica
+Prelipcean Arhire              4          6 Matematica
+Prelipcean Prelipcean          4          6 BD
+Prelipcean Archip              4          6 BD
+Arhire     Archip              4          5 Java
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Arhire     Antonie             4          5 Java
+Bodnar     Popescu             8         10 Logica
+Bodnar     Archip              6         10 Logica
+Bodnar     Arhire              4         10 Logica
+Panaite    Ciobotariu          7         10 Logica
+Panaite    Bodnar              7         10 Logica
+Antonie    Popescu             9         10 BD
+Antonie    Arhire              9         10 BD
+Antonie    Ciobotariu          7         10 BD
+Antonie    Antonie             7         10 BD
+Antonie    Bodnar              7         10 BD
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Prelipcean          6         10 BD
+Antonie    Arhire              4         10 BD
+Popescu    Ciobotariu          7         10 OOP
+Popescu    Bodnar              7         10 OOP
+Bodnar     Panaite             9         10 Matematica
+Bodnar     Antonie             7         10 Matematica
+Bodnar     Prelipcean          6         10 Matematica
+Bodnar     Antonie             4         10 Matematica
+Panaite    Archip              7         10 OOP
+Panaite    Prelipcean          5         10 OOP
+Panaite    Arhire              5         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Antonie             4         10 OOP
+Panaite    Panaite             9         10 BD
+Panaite    Antonie             9         10 BD
+Panaite    Bodnar              8         10 BD
+Panaite    Prelipcean          5         10 BD
+Arhire     Popescu             8         10 OOP
+Arhire     Panaite             8         10 OOP
+Arhire     Prelipcean          4         10 OOP
+Popescu    Bodnar              8          9 Matematica
+Popescu    Ciobotariu          7          9 Matematica
+Popescu    Antonie             7          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Arhire              6          9 Matematica
+Popescu    Arhire              5          9 Matematica
+Popescu    Archip              4          9 Matematica
+Popescu    Antonie             4          9 Matematica
+Arhire     Panaite             8          9 Matematica
+Antonie    Panaite             8          9 Matematica
+Antonie    Prelipcean          7          9 Matematica
+Antonie    Archip              7          9 Matematica
+Antonie    Arhire              6          9 Matematica
+Popescu    Popescu             8          9 BD
+Panaite    Arhire              6          9 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Panaite    Archip              6          9 Tehnologii Web
+Panaite    Archip              4          9 Tehnologii Web
+Antonie    Prelipcean          6          9 Logica
+Antonie    Prelipcean          5          9 Logica
+Panaite    Archip              4          8 Java
+Popescu    Antonie             4          8 Logica
+Bodnar     Panaite             7          8 Matematica
+Bodnar     Prelipcean          6          8 Matematica
+Antonie    Archip              4          7 OOP
+Antonie    Archip              6          7 Tehnologii Web
+Antonie    Arhire              4          7 Tehnologii Web
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Prelipcean Arhire              4          7 Logica
+Prelipcean Arhire              6          7 Java
+Prelipcean Prelipcean          4          7 Java
+Bodnar     Arhire              5          7 Logica
+Ciobotariu Arhire              4          7 Matematica
+Ciobotariu Antonie             4          7 Matematica
+Prelipcean Prelipcean          5          6 BD
+Prelipcean Arhire              4          6 BD
+Bodnar     Panaite             9         10 Logica
+Bodnar     Antonie             7         10 Logica
+Bodnar     Popescu             7         10 Logica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Panaite             7         10 Logica
+Bodnar     Arhire              6         10 Logica
+Panaite    Antonie             9         10 Logica
+Panaite    Antonie             7         10 Logica
+Panaite    Archip              6         10 Logica
+Panaite    Arhire              5         10 Logica
+Panaite    Antonie             4         10 Logica
+Antonie    Antonie             9         10 BD
+Antonie    Arhire              5         10 BD
+Antonie    Archip              4         10 BD
+Popescu    Arhire              5         10 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Arhire              4         10 OOP
+Bodnar     Popescu             9         10 Matematica
+Bodnar     Arhire              9         10 Matematica
+Panaite    Antonie             9         10 OOP
+Panaite    Bodnar              8         10 OOP
+Panaite    Ciobotariu          7         10 OOP
+Panaite    Archip              4         10 OOP
+Panaite    Antonie             7         10 BD
+Arhire     Arhire              4         10 OOP
+Arhire     Archip              4         10 OOP
+Popescu    Prelipcean          6          9 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Popescu    Arhire              4          9 Matematica
+Arhire     Archip              7          9 Matematica
+Arhire     Popescu             7          9 Matematica
+Arhire     Bodnar              7          9 Matematica
+Arhire     Arhire              5          9 Matematica
+Antonie    Panaite             7          9 Matematica
+Popescu    Bodnar              8          9 BD
+Popescu    Prelipcean          5          9 BD
+Popescu    Antonie             4          9 BD
+Bodnar     Bodnar              8          9 OOP
+Bodnar     Popescu             7          9 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Bodnar     Panaite             7          9 OOP
+Panaite    Prelipcean          4          9 Tehnologii Web
+Antonie    Archip              7          9 Logica
+Panaite    Arhire              4          8 Java
+Popescu    Archip              6          8 Logica
+Popescu    Prelipcean          5          8 Logica
+Popescu    Prelipcean          7          8 Tehnologii Web
+Popescu    Bodnar              7          8 Tehnologii Web
+Bodnar     Popescu             7          8 Matematica
+Bodnar     Archip              4          8 Matematica
+Antonie    Prelipcean          6          7 OOP
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Antonie    Prelipcean          6          7 Tehnologii Web
+Antonie    Archip              4          7 Tehnologii Web
+Antonie    Antonie             4          7 Tehnologii Web
+Bodnar     Prelipcean          4          7 Logica
+Popescu    Arhire              5          7 Java
+Ciobotariu Prelipcean          5          7 Logica
+Ciobotariu Prelipcean          5          7 Matematica
+Archip     Arhire              6          7 Logica
+Archip     Prelipcean          4          7 Logica
+Panaite    Arhire              6          7 Matematica
+Panaite    Archip              6          7 Matematica
+
+NUME       NUME          VALOARE    VALOARE TITLU_CURS
+---------- ---------- ---------- ---------- ---------------
+Archip     Prelipcean          4          6 Matematica
+Archip     Antonie             4          6 Matematica
+Arhire     Prelipcean          4          5 Java
+
+520 rows selected.
+
+SQL>

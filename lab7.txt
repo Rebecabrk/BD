@@ -1,0 +1,39 @@
+1.Afișați numele studenților care iau cea mai mare bursa acordată.
+select nume, prenume, bursa from studenti where bursa = (select max(bursa) from studenti);
+
+2.Afișați numele studenților care sunt colegi cu un student pe nume Arhire (coleg = același an si aceeași grupă).
+select nume, prenume, grupa, an from studenti where (an, grupa) in (select an , grupa from studenti where nume = 'Arhire') and nume != 'Arhire';
+
+3.Pentru fiecare grupă afișați numele studenților care au obținut cea mai mică notă la nivelul grupei.
+select distinct nume, prenume, valoare from studenti, note where valoare in (select min(valoare) from studenti, note group by studenti.nr_matricol, grupa);
+
+4.Identificați studenții a căror medie este mai mare decât media tuturor notelor din baza de date. Afișați numele și media acestora.
+select nume, prenume, trunc(avg(valoare),1) as medie from studenti s join note n on s.nr_matricol = n.nr_matricol 
+group by nume, prenume, s.nr_matricol having trunc(avg(valoare),1) > 
+(select trunc(avg(valoare),1) from note);
+
+5.Afișați numele și media primilor trei studenți ordonați descrescător după medie.
+SELECT *
+FROM (
+       SELECT nume, prenume, TRUNC(AVG(valoare), 2) medie_note
+       FROM studenti s
+       JOIN note n ON s.nr_matricol = n.nr_matricol
+       GROUP BY nume, prenume, s.nr_matricol
+       ORDER BY AVG(valoare) DESC
+)
+WHERE ROWNUM < 4;
+
+6.Afișați numele studentului (studenților) cu cea mai mare medie precum și valoarea mediei (atenție: limitarea numărului de linii poate elimina studenții de pe poziții egale; găsiți altă soluție).
+select nume, prenume, trunc(avg(valoare),1) as medie from studenti s join note n on s.nr_matricol = n.nr_matricol group by nume, prenume, s.nr_matricol having trunc(avg(valoare),1) = (select trunc(max(avg(valoare)),1) from studenti s join note n on s.nr_matricol = n.nr_matricol  group by s.nr_matricol);
+
+7.Afișați numărul de note pus în fiecare zi a săptămânii. Ordonați descrescător după numărul de note.
+select nume, prenume, valoare, titlu_curs from studenti s join note n on s.nr_matricol = n.nr_matricol join cursuri c on n.id_curs = c.id_curs where valoare = (select valoare from studenti s join note n on s.nr_matricol = n.nr_matricol join cursuri c on n.id_curs = c.id_curs where s.nume = 'Ciobotariu' and s.prenume = 'Ciprian' and c.titlu_curs = 'Logica' ) and nume != 'Ciobotatiu ' and prenume != 'Ciprian' and titlu_curs = 'Logica';
+
+8.Din tabela studenti, afisati al cincilea prenume in ordine alfabetica.
+select prenume from (select prenume, rownum as nr from (select prenume from studenti order by prenume)) where nr = 5;
+
+9.Punctajul unui student se calculeaza ca fiind o suma intre produsul dintre notele luate si creditele la materiile la care au fost luate notele. Afisati toate informatiile studentului care este pe locul 3 in acest top.
+
+
+10.Afișați studenții care au notă maximă la o materie precum și nota și materia respectivă.
+

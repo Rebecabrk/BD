@@ -1,0 +1,63 @@
+1.Afișați numărul de studenți din fiecare an.
+select an, count(*) as nr from studenti group by an;
+
+2.Afișați numărul de studenți din fiecare grupă a fiecărui an de studiu. Ordonați crescător după anul de studiu și după grupă.
+select grupa, an, count(*) as nr from studenti group by grupa, an order by an, grupa;
+
+3.Afișați numărul de studenți din fiecare grupă a fiecărui an de studiu și specificați câți dintre aceștia sunt bursieri.
+select an, grupa, count(*) as nr_stud, count(bursa) as nr_burs from studenti group by an,grupa;
+
+4.Afișați suma totală cheltuită de facultate pentru acordarea burselor.
+select sum(bursa) from studenti;
+
+5.Afișați valoarea bursei/cap de student (se consideră că studentii care nu sunt bursieri primesc 0 RON); altfel spus: cât se cheltuiește în medie pentru un student?
+select trunc(avg(nvl(bursa, 0)),2) as avg from studenti;
+
+6.Afișați numărul de note de fiecare fel (câte note de 10, câte de 9,etc.). Ordonați descrescător după valoarea notei.
+select valoare as nota, count(*) as nr from note group b
+y valoare;
+
+7.Afișați numărul de note pus în fiecare zi a săptămânii. Ordonați descrescător după numărul de note.
+select to_char(data_notare, 'day') as zi, count(valoare) from note group by to_char(data_notare, 'day') order by count(valoare) desc;
+
+8.Afișați numărul de note pus în fiecare zi a săptămânii. Ordonați crescător după ziua saptamanii: Sunday, Monday, etc.
+select to_char(data_notare, 'day') as zi, count(valoare) from note group by to_char(data_notare, 'day') order by to_char(data_notare, 'day');
+
+9.Afișați pentru fiecare elev care are măcar o notă, numele și media notelor sale. Ordonați descrescător după valoarea mediei.
+select nume, prenume, trunc(avg(valoare),1) as medie from studenti join note on studenti.nr_matricol = note.nr_matricol where valoare is not null group by nume, prenume, studenti.nr_matricol order by trunc(avg(valoare),1) desc;
+
+10.Modificați interogarea anterioară pentru a afișa și elevii fără nici o notă. Media acestora va fi null.
+select nume, prenume, trunc(avg(valoare),1) as medie from studenti left join note on studenti.nr_matricol = note.nr_matricol group by nume, prenume, studenti.nr_matricol order by trunc(avg(valoare),1) desc;
+
+11.Modificați interogarea anterioară pentru a afișa pentru elevii fără nici o notă media 0.
+select nume, prenume, trunc(avg(nvl(valoare,0)),1) as medie from studenti left join note on studenti.nr_matricol = note.nr_matricol group by nume, prenume, studenti.nr_matricol order by trunc(avg(nvl(valoare,0)),1) desc;
+
+12.Modificati interogarea de mai sus pentru a afisa doar studentii cu media mai mare ca 8.
+select nume, prenume, trunc(avg(valoare),1) as medie from studenti left join note on studenti.nr_matricol = note.nr_matricol group by nume, prenume, studenti.nr_matricol having trunc(avg(nvl(valoare,0)),1) > 8 order by trunc(avg(valoare),1) desc;
+
+13.Afișați numele, cea mai mare notă, cea mai mică notă și media doar pentru acei studenti care au primit doar note mai mari sau egale cu 7 (au cea mai mică notă mai mare sau egală cu 7).
+select nume, prenume, max(valoare) as max, min(valoare) as min, trunc(avg(valoare),1) as medie from studenti join note on studenti.nr_matricol = note.nr_matricol group by nume, prenume, studenti.nr_matricol having min(valoare) >= 7;
+
+14.Afișați numele și mediile studenților care au cel puțin un număr de 3 note puse în catalog.
+select nume, prenume, trunc(avg(valoare),1) as medie fro
+m studenti s join note n on s.nr_matricol = n.nr_matricol gro
+up by nume, prenume, s.nr_matricol having count(valoare) >= 3
+;
+
+15.Afișați numele și mediile studenților care au cel puțin un număr de 3 note diferite puse în catalog.
+select nume, prenume, trunc(avg(valoare),1) as medie fro
+m studenti s join note n on s.nr_matricol = n.nr_matricol group by nume, prenume, s.nr_matricol having count(distinct valo
+are) >= 3;
+
+16.Afișați numele și mediile studenților din grupa A2 anul 3.
+select nume, prenume, grupa, an, trunc(avg(valoare),1) as medie from studenti s join note n on s.nr_matricol = n.nr_matricol where grupa='A2' and an=3 group by nume, prenume, grupa, an, s.nr_matricol;
+
+17.Afișați cea mai mare medie obținută de vreun student. Puteți să afișați și numărul matricol al studentului care are acea medie maximală ? Argumentați.
+select max(trunc(avg(valoare),1)) as premiant from studenti s join note n on s.nr_matricol = n.nr_matricol group by s.nr_matricol;
+NU, nu se poate afisa si nr_matricol, dar nu stiu de ce.
+
+18.Un profesor este iubit de studenti daca pune note mai mari (adica media notelor sale este mai mare). Afisati toti profesorii in ordinea preferintelor studentilor impreuna cu mediile notelor puse de ei scrise cu doua zecimale.
+select nume, prenume, trunc(avg(nvl(valoare,0)),2) as medie from profesori p left join didactic d on p.id_prof = d.id_prof left join note n on d.id_curs = n.id_curs group by nume, prenume, p.id_prof order by trunc(avg(nvl(valoare,0)),2) desc;
+
+19.Afisati numarul de restantieri generati de FIECARE profesor (tip: 1 cu 2 restantieri, 4 cu 1 restantier, 11 cu 0 restantieri) 😈
+select nume, prenume, count(valoare) from profesori p left join didactic d on p.id_prof = d.id_prof left join note n on d.id_curs = n.id_curs where nvl(valoare, 0) < 5 group by nume, prenume, p.id_prof order by count(valoare);

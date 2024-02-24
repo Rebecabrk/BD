@@ -1,0 +1,51 @@
+select s.nume  ||  s.prenume as student, n.valoare nota , p.nume || p.prenume as profesor from
+studenti s join note n on s.nr_matricol = n.nr_matricol
+join didactic d on n.id_curs = d.id_curs
+join profesori p on d.id_prof = p.id_prof
+/
+
+select s.nume || ' ' || s.prenume as student, n.valoare as nota,
+c.titlu_curs as materie from
+studenti s join note n on s.nr_matricol = n.nr_matricol
+join cursuri c on n.id_curs = c.id_curs
+where c.titlu_curs = 'BD' and n.valoare = 10
+/
+
+select p.nume || ' ' || p.prenume as profesor, c.titlu_curs as cursuri from
+profesori p join didactic d on p.id_prof=d.id_prof
+join cursuri c on d.id_curs = c.id_curs
+/
+
+select p.nume || ' ' || p.prenume as profesor, c.titlu_curs as cursuri from  
+profesori p left join didactic d on p.id_prof=d.id_prof
+left join cursuri c on d.id_curs = c.id_curs
+
+select p.nume || ' ' || p.prenume as profesor, c.titlu_curs as cursuri from  
+profesori p right join didactic d on p.id_prof=d.id_prof
+right join cursuri c on d.id_curs = c.id_curs
+
+select p.nume || ' ' || p.prenume as profesor, c.titlu_curs as cursuri from
+profesori p full outer join didactic d on p.id_prof = d.id_prof
+full outer join cursuri c on d.id_curs = c.id_curs 
+minus 
+select p.nume || ' ' || p.prenume as profesor, c.titlu_curs as cursuri from
+profesori p join didactic d on p.id_prof=d.id_prof
+join cursuri c on d.id_curs = c.id_curs
+
+/
+
+select unique '<' || least(p1.nume, p2.nume) || ',' || greatest(p2.nume, p1.nume) || ',' || to_char(p1.data_nastere,'day','nls_date_language=romanian') || '>' as pereche from
+studenti p1 join studenti p2 on to_char(p1.data_nastere,'day') = to_char(p2.data_nastere,'day')
+/
+
+
+
+**************************************************************************************************************************************
+test mega
+
+ex1
+select p.nume || s.nume as nume, decode(p.nume, null, 'student', 'profesor') as titlu from profesori p full outer join studenti s on 1=0 where (p.nume like '%b%' or s.nume like '%b%')
+/
+ex5
+select unique '<' || least(p1.nume, p2.nume) || ',' || greatest(p2.nume, p1.nume) || '>' as pereche, d1.id_curs as id1, d2.id_curs as id2, c.titlu_curs as curs from profesori p1 join profesori p2 on not p1.id_prof = p2.id_prof join didactic d1 on p1.id_prof = d1.id_prof join didactic d2 on p2.id_prof = d2.id_prof join cursuri c on d2.id_curs = c.id_curs where d1.id_curs = d2.id_curs;
+
